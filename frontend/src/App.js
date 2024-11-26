@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainPage from '../src/pages/main/main'
+import Trend from '../src/pages/trend/trend'
+import RecInput from './pages/recomendation/input/input'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/trend" element={<Trend />} />
+          <Route path="/recomendation/input" element={<RecInput />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
-
 export default App;
