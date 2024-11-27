@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "Title";
+  src: url("./assets/fonts/Pretendard-Bold.otf");
+}
+@font-face {
+  font-family: "SubTitle";
+  src: url("./assets/fonts/Pretendard-SemiBold.otf");
+}
+@font-face {
+  font-family: "Regular";
+  src: url("./assets/fonts/Pretendard-Regular.otf");
+}

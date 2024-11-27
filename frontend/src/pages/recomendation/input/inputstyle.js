@@ -32,18 +32,20 @@ export const InputContainer=styled.div`
 export const Title=styled.div`
   font-size: 22px;
   margin-top: 80px;
+  font-family: Title;
 `
 
 export const SubTitle=styled.div`
   font-size: 18px;
   margin-top: 20px;
   margin-bottom: 30px;
+  font-family: SubTitle;
 `
 export const InputWrapper=styled.div`
     margin-top: 10px;
 `
 export const InputName=styled.div`
-
+  font-family: Regular;
 `
 export const Input=styled.input`
     width: 380px;
@@ -97,4 +99,5 @@ export const GoRecBtn=styled.button`
   margin-top: 40px;
   font-size: 20px;
   cursor: pointer;
+  font-family: SubTitle;
 `
