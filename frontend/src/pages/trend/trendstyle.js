@@ -70,3 +70,78 @@ export const LBottom=styled.div`
   flex-direction: column;
 
 `
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+export const Modal = styled.div`
+  width: 961px;
+  height: 451px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  text-align: left;
+  position: relative;
+`;
+
+export const ModalTitle = styled.h2`
+  font-size: 35px;
+  color: black;
+  margin-top: 60px;
+  margin-left: 30px;
+`;
+
+export const ModalClose = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: gray;
+  &:hover {
+    color: black;
+  }
+`;
+export const HoverLabel = styled.div`
+  position: absolute;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 100;
+  pointer-events: none;
+`;
+
+export const MContent=styled.div`
+  font-size: 18px;
+  font-family: Regular;
+  height: 200px;
+  width: 85%;
+  margin-top: 40px;
+  margin-left: 30px;
+  line-height: 1.5;
+`
+export const MLeft=styled.div`
+  width: 60%;
+  height: 100%;
+`
+export const MRight=styled.div`
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
