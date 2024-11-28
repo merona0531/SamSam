@@ -4,8 +4,9 @@ import {useNavigate} from "react-router-dom";
 import { useState } from 'react';
 
 import {
-    Container, Graph, GraphContainer, HoverLabel, LBottom, Left, LogoImg,
-    LTop, MContent, MLeft, Modal, ModalClose, ModalOverlay, ModalTitle, MRight, Right, SubTitle, Title, Wrapper
+    ButtonWrapper,
+    Container, Graph, HoverLabel, LBottom, Left, LogoImg,
+    LTop, MContent, MLeft, Modal, ModalClose, ModalOverlay, ModalTitle, MRight, Right, SubTitle, Title, Wrapper, RegionButton
 } from "./trendstyle";
 
 
@@ -33,11 +34,12 @@ export default function TrendPage() {
         "서울": "SEOUL",
         "부산": "BUSAN",
         "대구": "DAEGU",
-        "경상북도": "GYEONGSANGBUK-DO",
-        "경상남도": "GYEONGSANGNAM-DO",
+        "울산": "ULSAN",
         "대전": "DAEJEON",
         "세종": "SEJONG",
         "광주": "GWANGJU",
+        "경상북도": "GYEONGSANGBUK-DO",
+        "경상남도": "GYEONGSANGNAM-DO",
         "전라남도": "JEOLLANAM-DO",
         "전라북도": "JEOLLABUK-DO",
         "충청북도": "CHUNGCHEONGBUK-DO",
@@ -47,6 +49,7 @@ export default function TrendPage() {
         "제주도": "JEJU",
     };
 
+    const regions = Object.keys(regionToEnglish);
 
 
     return(
@@ -58,22 +61,21 @@ export default function TrendPage() {
                         <LTop>
                             <LogoImg src={Logo} onClick={() => navigate('/')}/>
                             <Title>
-                                스포츠이용권 사용트렌드가 궁금한 지역을 클릭해보세요!
+                                스포츠이용권 리스트가 궁금한 지역을 클릭해보세요!
                             </Title>
                             <SubTitle>
-                                해당 지역을 클릭하시면 지역트렌드에 대한 설명을 조회하실 수 있습니다.
+                                해당 지역을 클릭하시면 지역 스포츠 이용권에 대한 리스트를 조회하실 수 있습니다.
                             </SubTitle>
                         </LTop>
                         <LBottom>
                             <SubTitle style={{color:'white'}}>
-                                최근 이용객이  급격히 상승한 스포츠
+                                지역을 선택해주세요.
                             </SubTitle>
-                            <div style={{display:'flex',height:'90%', justifyContent:'center', alignContent:'center'}}>
-                                <GraphContainer>
-                                    <Graph></Graph>
-                                    <Graph></Graph>
-                                </GraphContainer>
-                            </div>
+                            <ButtonWrapper>
+                                {regions.map((region, index) => (
+                                    <RegionButton key={index}>{region}</RegionButton>
+                                ))}
+                            </ButtonWrapper>
                         </LBottom>
                     </Left>
                     <Right>

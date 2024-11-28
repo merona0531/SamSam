@@ -22,7 +22,7 @@ export const Container=styled.div`
 `
 export const InputContainer=styled.div`
   width: 680px;
-  height: 580px;
+  height: 95%;
   background-color: white;
   border-radius: 165px;
   display: flex;
@@ -31,7 +31,7 @@ export const InputContainer=styled.div`
 `
 export const Title=styled.div`
   font-size: 22px;
-  margin-top: 80px;
+  margin-top: 40px;
   font-family: Title;
 `
 
@@ -52,6 +52,9 @@ export const Input=styled.input`
   height: 40px;
   border: 2px solid black;
   margin-top: 5px;
+`
+export const CheckInput=styled.input`
+  border: 2px solid black;
 `
 export const GenderBtn = styled.div`
   width: 45px;
@@ -101,3 +104,9 @@ export const GoRecBtn=styled.button`
   cursor: pointer;
   font-family: SubTitle;
 `
+export const RadioForm = styled.div`
+  font-family: Regular;
+  width: 380px;
+  font-size: 17px;
+  margin-top: 25px;
+`;

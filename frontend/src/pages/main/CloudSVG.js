@@ -4,8 +4,8 @@ import React from 'react';
 const CloudSVG = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="50vw"
-        height="55vh"
+        width="600px"
+        height="47vh"
         viewBox="0 0 459 288"
         fill="none"
         style={{ position: 'absolute',

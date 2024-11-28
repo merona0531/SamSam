@@ -68,6 +68,8 @@ export const LBottom=styled.div`
   background-color: #001E5A;
   display: flex;
   flex-direction: column;
+  border-radius: 70px 70px 0 0;
+  align-items: center;
 
 `
 export const ModalOverlay = styled.div`
@@ -145,3 +147,27 @@ export const MRight=styled.div`
   align-items: center;
   justify-content: center;
 `
+export const ButtonWrapper=styled.div`
+  height: 60%;
+  width: 80%;
+  margin-top: 50px;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 */
+  place-items: center;
+`
+export const RegionButton = styled.button`
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  background-color: #FDB9DF;
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #FC72C0;
+  }
+`;

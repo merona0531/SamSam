@@ -1,8 +1,9 @@
 import {Reset} from "styled-reset";
 import { useState } from 'react';
 import {
+    CheckInput,
     Container, GenderBtn, GoRecBtn, Input, InputContainer,
-    InputName, InputWrapper, LogoImg, Mbti, MbtiContainer,
+    InputName, InputWrapper, LogoImg, Mbti, MbtiContainer, RadioForm,
     SubTitle, Title, Wrapper
 } from "./inputstyle";
 import Logo from '../../../images/3355.png'
@@ -79,6 +80,14 @@ export default function RecInputPage() {
                                 <Mbti onClick={() => toggleDimension("J_P")}>{selectedDimensions.J_P}</Mbti>
                             </MbtiContainer>
                         </InputWrapper>
+                        <RadioForm>
+                            <InputName>장애 여부를 알려주세요.</InputName>
+                            <div style={{display:'flex', alignItems:'center', marginTop:'15px'}}>
+                                <CheckInput type="checkbox"/>예
+                                <div style={{width:'20px'}}></div>
+                                <CheckInput type="checkbox"/>아니오
+                            </div>
+                        </RadioForm>
                         <GoRecBtn>추천받기</GoRecBtn>
                     </InputContainer>
                 </Container>

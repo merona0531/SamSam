@@ -33,21 +33,20 @@ export const LogoImg = styled.img`
 
 export const RoundedRectangle = styled.div`
     
-    width: 45vw;
-    height: 70vh;
+    width: 651px;
+    height: 550px;
     background-color: #FDB9DF;
     position: absolute;
     bottom: 0px;  
     right: 0px;
-    border-top-left-radius: 60%;
+    border-top-left-radius: 50%;
 
     min-width: 500px;
 `;
 
 export const Container = styled.div`
-    
-    width: 50vw;
-    height: 70vh;
+    width: 651px;
+    height: 475px;
     position: absolute;
     bottom: 0px;  
     right: 0px;   
@@ -95,6 +94,6 @@ export const Button = styled.button`
 
 export const Title=styled.div`
   font-size: 24px;
-  margin-top: 350px;
+  margin-top: 250px;
     z-index: 2;
 `
