@@ -36,15 +36,13 @@ export const RoundedRectangle = styled.div`
 
 `;
 
-export const Container = styled.div`
-   
-`;
 
 
 export const ButtonContainer = styled.div`
     width: 592px;
   height: 428px;
-  background-color: #FDB9DF;
+  box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
+  background-color: rgba(253, 185, 223, 0.9); /* 투명도 50% */
   border-radius: 41px 0 0 0;
     text-align: center;
     display: flex;
