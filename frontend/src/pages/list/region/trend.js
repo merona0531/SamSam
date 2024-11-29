@@ -1,5 +1,5 @@
 import { Reset } from 'styled-reset';
-import Logo from '../../images/3355.png'
+import Logo from '../../../images/3355.png'
 import {useNavigate} from "react-router-dom";
 import { useState } from 'react';
 
