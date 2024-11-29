@@ -83,8 +83,8 @@ export const Button = styled.button`
   width: 411px;
   height: 70px; 
   font-size: 22px;
-  color: #000000;
-  background-color: #FFFFFF;
+  color: #ffffff;
+  background-color: #001E5A;
   border: none;
   border-radius: 10px;
   cursor: pointer;
