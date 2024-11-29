@@ -26,6 +26,9 @@ export default function MainPage() {
                 <MainImg src={MainImage} />
                 <LogoImg src={Logo}  />
                 <RoundedRectangle >
+                    <div style={{ marginBottom: "3px", opacity: "0.5", fontSize:"10px" }}>
+                        <a href="http://www.freepik.com">Designed by Freepik</a>
+                    </div>
                     <ButtonContainer>
                         <Title>원하는 서비스를 선택해주세요.</Title>
                         <ButtonWrapper>
@@ -40,7 +43,6 @@ export default function MainPage() {
                         </ButtonWrapper>
                     </ButtonContainer>
                 </RoundedRectangle>
-
             </Wrapper>
         </>
     )

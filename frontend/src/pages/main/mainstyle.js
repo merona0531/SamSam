@@ -32,8 +32,8 @@ export const RoundedRectangle = styled.div`
   position: absolute;
   bottom: 0;
   display: flex;
-  justify-content: flex-end;
-
+  justify-content: space-between;
+  align-items: flex-end;
 `;
 
 
@@ -81,6 +81,8 @@ export const Button = styled.button`
   width: 411px;
   height: 70px; 
   font-size: 22px;
+  box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
+
   color: #ffffff;
   background-color: #001E5A;
   border: none;
@@ -98,8 +100,11 @@ export const LButton=styled.button`
   height: 50px;
   font-size: 22px;
   background-color: #001E5A;
+  box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
+
   border: none;
   border-radius: 30px;
+  transition: all 0.2s ease-in-out;
   color: white;
   &:hover {
     background-color: #FF85C1; /* 호버 효과 */

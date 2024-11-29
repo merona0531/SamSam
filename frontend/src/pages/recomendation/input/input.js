@@ -104,7 +104,7 @@ export default function RecInputPage() {
                                 />아니오
                             </div>
                         </RadioForm>
-                        <GoRecBtn>추천받기</GoRecBtn>
+                        <GoRecBtn onClick={() => navigate('/recomendation/result')}>추천받기</GoRecBtn>
                     </InputContainer>
                 </Container>
             </Wrapper>
