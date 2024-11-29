@@ -12,7 +12,7 @@ import {
 } from "./mainstyle.js";
 import {useNavigate} from "react-router-dom";
 
-import MainImage from '../../images/img.png'
+import MainImage from '../../images/img.jpg'
 import Logo from '../../images/samsam.png'
 
 
