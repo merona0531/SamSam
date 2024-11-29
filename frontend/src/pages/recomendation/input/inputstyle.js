@@ -25,13 +25,13 @@ export const InputContainer=styled.div`
   height: 95%;
   background-color: white;
   border-radius: 165px;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 export const Title=styled.div`
   font-size: 22px;
-  margin-top: 40px;
   font-family: Title;
 `
 
@@ -46,6 +46,16 @@ export const InputWrapper=styled.div`
 `
 export const InputName=styled.div`
   font-family: Regular;
+  display: flex;
+  height: 17px;
+`
+export const Coment=styled.div`
+  font-size: 12px;
+  color: #9D9D9D;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
 `
 export const Input=styled.input`
     width: 380px;
@@ -84,7 +94,7 @@ export const Mbti = styled.button`
   height: 45px;
     font-size: 18px;
     color: black;
-    background-color: white;
+    background-color: #FFE8F5;
     border-radius: 30px;
     appearance: none;
     position: relative;
@@ -103,6 +113,13 @@ export const GoRecBtn=styled.button`
   font-size: 20px;
   cursor: pointer;
   font-family: SubTitle;
+  transition: all 0.2s ease-in-out;
+
+
+  &:hover {
+    background-color: #FF85C1; 
+    transform: scale(1.05); 
+  }
 `
 export const RadioForm = styled.div`
   font-family: Regular;

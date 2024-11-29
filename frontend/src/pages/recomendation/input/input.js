@@ -1,7 +1,7 @@
 import {Reset} from "styled-reset";
 import { useState } from 'react';
 import {
-    CheckInput,
+    CheckInput, Coment,
     Container, GenderBtn, GoRecBtn, Input, InputContainer,
     InputName, InputWrapper, LogoImg, Mbti, MbtiContainer, RadioForm,
     SubTitle, Title, Wrapper
@@ -54,7 +54,7 @@ export default function RecInputPage() {
                         <SubTitle>사용자의 정보를 종합해 알맞은 스포츠를 추천해드립니다.</SubTitle>
                         <InputWrapper>
                             <InputName>나이</InputName>
-                            <Input  placeholder="ex)20020331"></Input>
+                            <Input  placeholder="ex) 25"></Input>
                         </InputWrapper>
                         <InputWrapper>
                             <InputName>성별</InputName>
@@ -78,7 +78,9 @@ export default function RecInputPage() {
                             </MbtiContainer>
                         </InputWrapper>
                         <InputWrapper>
-                            <InputName>MBTI</InputName>
+                            <InputName>MBTI
+                                <Coment>MBTI를 클릭하시면 변경됩니다!</Coment>
+                            </InputName>
                             <MbtiContainer>
                                 <Mbti onClick={() => toggleDimension("E_I")}>{selectedDimensions.E_I}</Mbti>
                                 <Mbti onClick={() => toggleDimension("N_S")}>{selectedDimensions.N_S}</Mbti>
