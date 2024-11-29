@@ -19,6 +19,7 @@ export default function RecInputPage() {
         J_P: "J"
     });
     const [selectedGender, setSelectedGender] = useState(null);
+    const [disability, setDisability] = useState(null); // 장애 여부 상태 추가
 
     const toggleDimension = (dimension) => {
         setSelectedDimensions(prevState => {
@@ -35,6 +36,11 @@ export default function RecInputPage() {
 
     const handleGenderClick = (gender) => {
         setSelectedGender(gender);
+    };
+
+    // 장애 여부 선택 처리 함수
+    const handleDisabilityChange = (value) => {
+        setDisability(value);
     };
 
     return(
@@ -83,17 +89,23 @@ export default function RecInputPage() {
                         <RadioForm>
                             <InputName>장애 여부를 알려주세요.</InputName>
                             <div style={{display:'flex', alignItems:'center', marginTop:'15px'}}>
-                                <CheckInput type="checkbox"/>예
+                                <CheckInput
+                                    type="radio"
+                                    checked={disability === "yes"}
+                                    onChange={() => handleDisabilityChange("yes")}
+                                />예
                                 <div style={{width:'20px'}}></div>
-                                <CheckInput type="checkbox"/>아니오
+                                <CheckInput
+                                    type="radio"
+                                    checked={disability === "no"}
+                                    onChange={() => handleDisabilityChange("no")}
+                                />아니오
                             </div>
                         </RadioForm>
                         <GoRecBtn>추천받기</GoRecBtn>
                     </InputContainer>
                 </Container>
-
-
             </Wrapper>
         </>
-    )
+    );
 }
