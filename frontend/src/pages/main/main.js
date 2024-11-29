@@ -1,13 +1,19 @@
 import {Reset} from "styled-reset";
-import {Wrapper, MainImg , LogoImg, Container, RoundedRectangle, ButtonContainer, ButtonWrapper, Button, Title} from "./mainstyle.js";
+import {
+    Wrapper,
+    MainImg,
+    LogoImg,
+    RoundedRectangle,
+    ButtonContainer,
+    ButtonWrapper,
+    Button,
+    Title,
+    ListButtonWrapper, LButton
+} from "./mainstyle.js";
 import {useNavigate} from "react-router-dom";
 
-
-import MainImage from '../../images/image.png'
+import MainImage from '../../images/img.png'
 import Logo from '../../images/samsam.png'
-import CloudSVG from './CloudSVG';
-
-
 
 
 export default function MainPage() {
@@ -19,20 +25,21 @@ export default function MainPage() {
             <Wrapper>
                 <MainImg src={MainImage} />
                 <LogoImg src={Logo}  />
-                <CloudSVG />
-                <Container>
                 <RoundedRectangle >
-                <ButtonContainer>
-                    <Title>원하는 서비스를 선택해주세요.</Title>
-                    <ButtonWrapper>
-                        <Button>전국 체육시설 스포츠강좌 리스트</Button>
-                        <Button onClick={() => navigate('/trend')}>스포츠이용권 사용 트렌드</Button>
-                        <Button onClick={() => navigate('/recomendation/input')}>유사도 추천</Button>
-                    </ButtonWrapper>
-                </ButtonContainer>
+                    <ButtonContainer>
+                        <Title>원하는 서비스를 선택해주세요.</Title>
+                        <ButtonWrapper>
+                            <ListButtonWrapper>
+                                전국 체육시설 스포츠강좌 리스트
+                                <div style={{display:'flex', width:'338px', justifyContent:'space-between', marginTop:'20px'}}>
+                                    <LButton onClick={() => navigate('/list/byregion')}>지역별</LButton>
+                                    <LButton onClick={() => navigate('/list/bysport')}>종목별</LButton>
+                                </div>
+                            </ListButtonWrapper>
+                            <Button onClick={() => navigate('/recomendation/input')}>유사도 추천</Button>
+                        </ButtonWrapper>
+                    </ButtonContainer>
                 </RoundedRectangle>
-                </Container>
-
 
             </Wrapper>
         </>

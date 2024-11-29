@@ -8,17 +8,13 @@ export const Wrapper=styled.div`
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    margin: 0;
-    position: relative;
 `
 
 export const MainImg = styled.img`
     height: 100%;  
-    width: auto;  
+  width: 100%;
     object-fit: cover; 
     position: absolute;
-    left: -100px;
-
 `;
 
 
@@ -32,31 +28,24 @@ export const LogoImg = styled.img`
 `;
 
 export const RoundedRectangle = styled.div`
-    
-    width: 651px;
-    height: 550px;
-    background-color: #FDB9DF;
-    position: absolute;
-    bottom: 0px;  
-    right: 0px;
-    border-top-left-radius: 50%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
 
-    min-width: 500px;
 `;
 
 export const Container = styled.div`
-    width: 651px;
-    height: 475px;
-    position: absolute;
-    bottom: 0px;  
-    right: 0px;   
+   
 `;
 
 
 export const ButtonContainer = styled.div`
-    width: 100%;
-    height: 80%;
-
+    width: 592px;
+  height: 428px;
+  background-color: #FDB9DF;
+  border-radius: 41px 0 0 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -67,7 +56,6 @@ export const ButtonContainer = styled.div`
 
 export const ButtonWrapper = styled.div`
     width: 411px;  /* 버튼의 너비 */
-    height: 100vh; /* 버튼의 높이 (원하는 크기로 조정) */
     display: flex;  
     flex-direction: column;
     justify-content: center;
@@ -75,6 +63,22 @@ export const ButtonWrapper = styled.div`
     gap: 30px
 `;
 
+export const ListButtonWrapper = styled.div`
+  width: 430px;
+  height: 165px; 
+  font-size: 22px;
+  color: #000000;
+  background-color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  
+`;
 export const Button = styled.button`
   width: 411px;
   height: 70px; 
@@ -85,15 +89,27 @@ export const Button = styled.button`
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-
   &:hover {
     background-color: #FF85C1; /* 호버 효과 */
     transform: scale(1.05); /* 약간 확대 */
   }
+  
 `;
+export const LButton=styled.button`
+    width: 152px;
+  height: 50px;
+  font-size: 22px;
+  background-color: #001E5A;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  &:hover {
+    background-color: #FF85C1; /* 호버 효과 */
+    transform: scale(1.05); /* 약간 확대 */
+  }
+`
 
 export const Title=styled.div`
-  font-size: 24px;
-  margin-top: 250px;
+  font-size: 18px;
     z-index: 2;
 `
