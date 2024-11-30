@@ -2,6 +2,7 @@ import {Reset} from "styled-reset";
 import {BtnWrapper, Container, LogoImg, SportBtn, SportImg, SportName, Title, Wrapper} from "./sportstyle";
 import Logo from "../../../images/3355.png";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 const images = {
     "필라테스": require('../../../images/sport/필라테스.png'),
@@ -40,6 +41,12 @@ const images = {
 
 export default function BySportPage() {
     const navigate = useNavigate();
+    const [ setSelectedSport] = useState("");
+
+    const handleSportClick = (sport) => {
+        setSelectedSport(sport);
+        navigate("/list", { state: { sport, source: "BySportPage" } });
+    };
 
     return(
         <>
@@ -50,9 +57,9 @@ export default function BySportPage() {
                     <Title>조회하고싶은 강좌를 선택해 주세요</Title>
                     <BtnWrapper>
                         {Object.entries(images).map(([key, src]) => (
-                            <SportBtn key={key}>
+                            <SportBtn key={key} onClick={() => handleSportClick(key)}>
                                 <SportImg src={src} alt={key} />
-                                <SportName>{key}</SportName> {/* 종목명 표시 */}
+                                <SportName>{key}</SportName>
                             </SportBtn>
                         ))}
                     </BtnWrapper>

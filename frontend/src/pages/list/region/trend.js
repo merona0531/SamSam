@@ -5,33 +5,32 @@ import { useState } from 'react';
 
 import {
     ButtonWrapper,
-    Container, Graph, HoverLabel, LBottom, Left, LogoImg,
-    LTop, MContent, MLeft, Modal, ModalClose, ModalOverlay, ModalTitle, MRight, Right, SubTitle, Title, Wrapper, RegionButton
+    Container, HoverLabel, LBottom, Left, LogoImg,
+    LTop, Right, SubTitle, Title, Wrapper, RegionButton
 } from "./trendstyle";
 
 export default function TrendPage() {
-    const [modalInfo, setModalInfo] = useState({ isVisible: false, region: "" });
     const [hoverInfo, setHoverInfo] = useState({ region: "", x: 0, y: 0 });
-    const [hoveredRegion, setHoveredRegion] = useState(""); // 추가된 상태
+    const [hoveredRegion, setHoveredRegion] = useState("");
 
-    const closeModal = () => setModalInfo({ isVisible: false, region: "" });
     const navigate = useNavigate();
 
-    const handleRegionClick = (regionName) => setModalInfo({ isVisible: true, region: regionName });
-
+    const handleRegionClick = (regionName) => {
+        navigate('/list', { state: { source: 'TrendPage', region: regionName } }); // 출처와 지역 정보 전달
+    };
     const handleMouseEnter = (regionName, event) => {
         const { clientX, clientY } = event;
         setHoverInfo({ region: regionName, x: clientX, y: clientY });
-        setHoveredRegion(regionName); // 상태 업데이트
+        setHoveredRegion(regionName);
     };
 
     const handleMouseLeave= () => {
         setHoverInfo({ region: "", x: 0, y: 0 });
-        setHoveredRegion(""); // 상태 초기화
+        setHoveredRegion("");
     };
 
-    const handleMouseEnterButton = (regionName) => setHoveredRegion(regionName); // 버튼 hover
-    const handleMouseLeaveButton = () => setHoveredRegion(""); // 버튼 hover 해제
+    const handleMouseEnterButton = (regionName) => setHoveredRegion(regionName);
+    const handleMouseLeaveButton = () => setHoveredRegion("");
 
     const regionToEnglish = {
         "서울": "SEOUL",
@@ -53,6 +52,10 @@ export default function TrendPage() {
     };
 
     const regions = Object.keys(regionToEnglish);
+
+    const handleButtonClick = (regionName) => {
+        handleRegionClick(regionName);
+    };
 
     return (
         <>
@@ -79,6 +82,7 @@ export default function TrendPage() {
                                         key={index}
                                         onMouseEnter={() => handleMouseEnterButton(region)}
                                         onMouseLeave={handleMouseLeaveButton}
+                                        onClick={() => handleButtonClick(region)}
                                     >
                                         {region}
                                     </RegionButton>
@@ -232,29 +236,7 @@ export default function TrendPage() {
                         </svg>
                     </Right>
                 </Container>
-                {modalInfo.isVisible && (
-                    <ModalOverlay onClick={closeModal}>
-                        <Modal onClick={(e) => e.stopPropagation()}>
-                            <ModalClose onClick={closeModal}>
-                                <svg width="18" height="18" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2.3 23L0 20.7L9.2 11.5L0 2.3L2.3 0L11.5 9.2L20.7 0L23 2.3L13.8 11.5L23 20.7L20.7 23L11.5 13.8L2.3 23Z" fill="black"/>
-                                </svg>
-                            </ModalClose>
-                            <MLeft>
-                                <ModalTitle>
-                                    {modalInfo.region} {regionToEnglish[modalInfo.region] || ""}
-                                </ModalTitle>
-                                <MContent>
-                                    대구의 스포츠 트렌드는 머시기머시기 상승하였고, 머시기머시기가 전년대비 몇프로증가했으며, 지난달대비 머시기머시기의 폭으로 크게상승해 대구의 현재 트렌드 스포츠는 뭐라고 말할수있습니다.<br/>
-                                    함께 즐겨보는것은 어떠세요?
-                                </MContent>
-                            </MLeft>
-                            <MRight>
-                                <Graph></Graph>
-                            </MRight>
-                        </Modal>
-                    </ModalOverlay>
-                )}
+
             </Wrapper>
         </>
     )

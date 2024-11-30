@@ -6,7 +6,7 @@ import {
     SubImg, Title, Wrapper, LogoImg, Name
 } from "./resultstyle";
 import Logo from '../../../images/3355.png';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // 이미지 매핑 객체
 const images = {
@@ -18,13 +18,8 @@ const images = {
 
 export default function RecResultPage() {
     const navigate = useNavigate();
-
-    const mainSport = "요가";
-    const recommendations = [
-        { id: "01", name: "필라테스" },
-        { id: "02", name: "골프" },
-        { id: "03", name: "베드민턴" },
-    ];
+    const location = useLocation();
+    const { mainSport, recommendations } = location.state;
 
     const [description, setDescription] = useState("");
 
@@ -69,11 +64,11 @@ export default function RecResultPage() {
                             이외의 추천
                         </Title>
                         <SubWrapper>
-                            {recommendations.map((rec) => (
-                                <Sub key={rec.id}>
-                                    <Number>{rec.id}</Number>
-                                    <SubImg src={images[rec.name]} alt={rec.name} />
-                                    <Name>{rec.name}</Name>
+                            {recommendations.map((rec, index) => (
+                                <Sub key={index}>
+                                    <Number>{index + 1}</Number>
+                                    <SubImg src={images[rec]} alt={rec} />
+                                    <Name>{rec}</Name>
                                 </Sub>
                             ))}
                         </SubWrapper>

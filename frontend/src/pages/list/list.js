@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Reset } from "styled-reset";
+import { useLocation } from "react-router-dom";
 import {
     AgeBtn, CIName, CName,
     Container, ContentWrapper, CWName,
@@ -17,6 +18,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function ListPage() {
     const navigate = useNavigate();
+    const location = useLocation(); // 선택된 종목 정보 가져오기
+
+    const { source, region, sport } = location.state || {};
+
+    const title = source === 'TrendPage' ? region || "지역" : sport || "스포츠";
 
     // 데이터 생성
     const contentData = Array.from({ length: 15 }, (_, i) => ({
@@ -45,6 +51,9 @@ export default function ListPage() {
         }
     };
 
+    const placeholderText = source === "TrendPage" ? "종목을 검색해보세요." : "지역을 검색해보세요.";
+
+
     return (
         <>
             <Reset />
@@ -53,9 +62,9 @@ export default function ListPage() {
                     <LogoImg src={Logo} onClick={() => navigate("/")} />
                 </LogoContainer>
                 <Container>
-                    <Title>대구 DAEGU</Title>
+                    <Title>{title}</Title>
                     <SearchBar>
-                        <Search placeholder="종목을 검색해보세요."/>
+                        <Search  placeholder={placeholderText}/>
                         <Magnifier>
                             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M24.9 27L15.45 17.55C14.7 18.15 13.8375 18.625 12.8625 18.975C11.8875 19.325 10.85 19.5 9.75 19.5C7.025 19.5 4.719 18.556 2.832 16.668C0.945001 14.78 0.00100079 12.474 7.93651e-07 9.75C-0.000999206 7.026 0.943001 4.72 2.832 2.832C4.721 0.944 7.027 0 9.75 0C12.473 0 14.7795 0.944 16.6695 2.832C18.5595 4.72 19.503 7.026 19.5 9.75C19.5 10.85 19.325 11.8875 18.975 12.8625C18.625 13.8375 18.15 14.7 17.55 15.45L27 24.9L24.9 27ZM9.75 16.5C11.625 16.5 13.219 15.844 14.532 14.532C15.845 13.22 16.501 11.626 16.5 9.75C16.499 7.874 15.843 6.2805 14.532 4.9695C13.221 3.6585 11.627 3.002 9.75 3C7.873 2.998 6.2795 3.6545 4.9695 4.9695C3.6595 6.2845 3.003 7.878 3 9.75C2.997 11.622 3.6535 13.216 4.9695 14.532C6.2855 15.848 7.879 16.504 9.75 16.5Z" fill="#FC72C0" />

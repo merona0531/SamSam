@@ -20,6 +20,8 @@ export default function RecInputPage() {
     });
     const [selectedGender, setSelectedGender] = useState(null);
     const [disability, setDisability] = useState(null); // 장애 여부 상태 추가
+    const [age, setAge] = useState("");
+
 
     const toggleDimension = (dimension) => {
         setSelectedDimensions(prevState => {
@@ -41,6 +43,37 @@ export default function RecInputPage() {
     // 장애 여부 선택 처리 함수
     const handleDisabilityChange = (value) => {
         setDisability(value);
+    };
+
+    const handleSubmit = async () => {
+        // Construct the user data object
+        const userData = {
+            sex: selectedGender,
+            mbti: `${selectedDimensions.E_I}${selectedDimensions.N_S}${selectedDimensions.T_F}${selectedDimensions.J_P}`,
+            age: age,
+            disability: disability === "yes" ? "유" : "무"
+        };
+
+        try {
+            // Make the POST request to the Flask backend
+            const response = await fetch('http://127.0.0.1:5000/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            });
+
+            const data = await response.json();
+            const recommendedSports = data.recommended_sports;
+
+            // Navigate to the result page and pass the recommendations
+            navigate('/recomendation/result', {
+                state: { mainSport: recommendedSports[0], recommendations: recommendedSports.slice(1) }
+            });
+        } catch (error) {
+            console.error('Error sending POST request:', error);
+        }
     };
 
     return(
