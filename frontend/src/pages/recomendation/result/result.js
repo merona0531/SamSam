@@ -19,7 +19,7 @@ const images = {
 export default function RecResultPage() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { mainSport, recommendations } = location.state;
+    const { mainSport, recommendations } = location.state || { mainSport: "", recommendations: [] };
 
     const [description, setDescription] = useState("");
 
@@ -43,6 +43,37 @@ export default function RecResultPage() {
 
         fetchDescription();
     }, [mainSport]);
+
+    // 데이터 POST 예시 (데이터를 POST하는 로직과 함께 console 출력 추가)
+    useEffect(() => {
+        const postData = async () => {
+            const requestData = {
+                mainSport,
+                recommendations,
+            };
+
+            console.log("POST 데이터:", requestData); // 데이터를 console에 출력
+
+            try {
+                const response = await fetch('/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                });
+
+                const result = await response.json();
+                console.log("POST 응답 데이터:", result); // 서버 응답 출력
+            } catch (error) {
+                console.error("POST 요청 오류:", error);
+            }
+        };
+
+        if (mainSport && recommendations.length > 0) {
+            postData();
+        }
+    }, [mainSport, recommendations]);
 
     return (
         <>

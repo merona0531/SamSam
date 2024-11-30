@@ -46,30 +46,40 @@ export default function RecInputPage() {
     };
 
     const handleSubmit = async () => {
-        // Construct the user data object
+        // 성별 변환 (F -> 여, M -> 남)
+        const genderText = selectedGender === "F" ? "여" : "남";
+
         const userData = {
-            sex: selectedGender,
+            sex: genderText,
             mbti: `${selectedDimensions.E_I}${selectedDimensions.N_S}${selectedDimensions.T_F}${selectedDimensions.J_P}`,
-            age: age,
-            disability: disability === "yes" ? "유" : "무"
+            age: parseInt(age), // 문자열을 숫자로 변환
+            disability: disability === "yes" ? "유" : "무",
         };
 
         try {
-            // Make the POST request to the Flask backend
             const response = await fetch('http://127.0.0.1:5000/recommend', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userData)
+                body: JSON.stringify(userData),
             });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
+
+            // 백엔드에서 추천 결과 데이터 받기
             const recommendedSports = data.recommended_sports;
 
-            // Navigate to the result page and pass the recommendations
+            // 결과 페이지로 이동하며 추천 데이터를 전달
             navigate('/recomendation/result', {
-                state: { mainSport: recommendedSports[0], recommendations: recommendedSports.slice(1) }
+                state: {
+                    mainSport: recommendedSports[0], // 메인 추천 스포츠
+                    recommendations: recommendedSports.slice(1), // 나머지 추천 목록
+                },
             });
         } catch (error) {
             console.error('Error sending POST request:', error);
@@ -87,7 +97,11 @@ export default function RecInputPage() {
                         <SubTitle>사용자의 정보를 종합해 알맞은 스포츠를 추천해드립니다.</SubTitle>
                         <InputWrapper>
                             <InputName>나이</InputName>
-                            <Input  placeholder="ex) 25"></Input>
+                            <Input
+                                placeholder="ex) 25"
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
+                            />;
                         </InputWrapper>
                         <InputWrapper>
                             <InputName>성별</InputName>
@@ -137,7 +151,7 @@ export default function RecInputPage() {
                                 />아니오
                             </div>
                         </RadioForm>
-                        <GoRecBtn onClick={() => navigate('/recomendation/result')}>추천받기</GoRecBtn>
+                        <GoRecBtn onClick={handleSubmit}>추천받기</GoRecBtn>
                     </InputContainer>
                 </Container>
             </Wrapper>
