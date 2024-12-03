@@ -40,6 +40,7 @@ export default function ListPage() {
     const { source, region, sport } = location.state || {};
     const title = source === 'TrendPage' ? region || "지역" : sport || "스포츠";
 
+<<<<<<< HEAD
     const [contentData, setContentData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -47,6 +48,22 @@ export default function ListPage() {
     const [selectedDays, setSelectedDays] = useState([]); // 선택된 요일 상태 추가
 
     const itemsPerPage = 12;
+=======
+    // 데이터 생성
+    const contentData = Array.from({ length: 25 }, (_, i) => ({
+        id: i + 1,
+        institution: `기관이름 ${i + 1}`,
+        sport: `종목 ${i + 1}`,
+        day: `개설요일 ${i + 1}`,
+        time:`개설시간 ${i+1}`,
+        address: `주소 ${i + 1}`,
+        website: "웹사이트 방문"
+    }));
+
+    // 페이지 상태 관리
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20;
+>>>>>>> 2124fae2e69074f24b9389e095c49e5081a0c7aa
 
     const daysOfWeek = [
         { label: "월", value: "Mon" },
@@ -151,11 +168,18 @@ export default function ListPage() {
                         <ResultName>종목</ResultName>
                         <VirticalBar/>
                         <ResultName>개설요일</ResultName>
+<<<<<<< HEAD
                         <VirticalBar/>
+=======
+                        <VirticalBar />
+                        <ResultName>개설시간</ResultName>
+                        <VirticalBar />
+>>>>>>> 2124fae2e69074f24b9389e095c49e5081a0c7aa
                         <ResultName>주소</ResultName>
                         <VirticalBar/>
                         <ResultWName>신청하러가기</ResultWName>
                     </ResultNameWrapper>
+<<<<<<< HEAD
                     {contentData.length === 0 ? (
                         <p>데이터가 없습니다.</p>
                     ) : (
@@ -175,6 +199,23 @@ export default function ListPage() {
                             </ContentWrapper>
                         ))
                     )}
+=======
+                    {currentData.map((item) => (
+                        <ContentWrapper key={item.id}>
+                            <CIName>{item.institution}</CIName>
+                            <VirticalBar />
+                            <CName>{item.sport}</CName>
+                            <VirticalBar />
+                            <CName>{item.day}</CName>
+                            <VirticalBar />
+                            <CName>{item.time}</CName>
+                            <VirticalBar />
+                            <CName>{item.address}</CName>
+                            <VirticalBar />
+                            <CWName>{item.website}</CWName>
+                        </ContentWrapper>
+                    ))}
+>>>>>>> 2124fae2e69074f24b9389e095c49e5081a0c7aa
 
                     {/* 페이지네이션 추가 */}
                     <div style={{display: "flex", justifyContent: "center", marginTop: "20px", marginBottom: "40px"}}>

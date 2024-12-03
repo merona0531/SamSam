@@ -81,7 +81,7 @@ export const AgeBtn=styled.button`
 
 `
 export const ResultNameWrapper=styled.div`
-    width: 924px;
+    width: 1082px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -118,13 +118,13 @@ export const VirticalBar=styled.div`
   background-color: #d9d9d9;
 `
 export const ContentWrapper=styled.div`
-  width: 924px;
+  width: 1082px;
   height: 60px;
   background-color: white;
   border-radius: 0 30px 30px 0;
   display: flex;
   align-items: center;
-  margin-bottom: 19px;
+  margin-bottom: 5px;
 `
 
 export const CIName=styled.div`
