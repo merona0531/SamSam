@@ -44,7 +44,7 @@ export default function ListPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
-    const [selectedDays, setSelectedDays] = useState([]); // 선택된 요일 상태 추가
+
 
     const itemsPerPage = 12;
 
@@ -173,17 +173,8 @@ export default function ListPage() {
                         ))
                     )}
 
-                    {/* 페이지네이션 버튼 */}
-                    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", marginBottom: "40px" }}>
-                        {[...Array(totalPages)].map((_, i) => (
-                            <button
-                                key={i + 1}
-                                style={{ margin: "0 5px", fontWeight: currentPage === i + 1 ? "bold" : "normal" }}
-                                onClick={() => handlePageChange(i + 1)}
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+                        {/* 페이지네이션 버튼들 추가 */}
                     </div>
                 </Container>
             </Wrapper>
