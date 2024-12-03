@@ -150,3 +150,35 @@ export const CWName=styled.div`
   justify-content: center;
 
 `
+
+
+
+export const DaySelectorContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+`;
+
+export const DayLabel = styled.span`
+    font-size: 18px;
+    margin-right: 10px;
+`;
+
+export const DayButton = styled.button`
+    flex: 1;
+    padding: 10px;
+    margin: 0 0px;
+    background-color: ${(props) => (props.selected ? "#FC72C0" : "#fff")};
+    color: ${(props) => (props.selected ? "#fff" : "#000")};
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+        background-color: ${(props) => (props.selected ? "#FC72C0" : "#f0f0f0")};
+    }
+`;
+
+
+
