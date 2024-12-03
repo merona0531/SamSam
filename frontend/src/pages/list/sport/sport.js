@@ -13,7 +13,6 @@ const images = {
     "베드민턴": require('../../../images/sport/베드민턴.png'),
     "크로스핏": require('../../../images/sport/크로스핏.png'),
     "검도": require('../../../images/sport/검도.png'),
-    "기타": require('../../../images/sport/기타.png'),
     "농구": require('../../../images/sport/농구.png'),
     "당구": require('../../../images/sport/당구.png'),
     "댄스": require('../../../images/sport/댄스.png'),
@@ -27,7 +26,6 @@ const images = {
     "승마": require('../../../images/sport/승마.png'),
     "야구": require('../../../images/sport/야구.png'),
     "에어로빅": require('../../../images/sport/에어로빅.png'),
-    "종합체육시설": require('../../../images/sport/종합체육시설.png'),
     "줄넘기": require('../../../images/sport/줄넘기.png'),
     "축구": require('../../../images/sport/축구.png'),
     "클라이밍": require('../../../images/sport/클라이밍.png'),
@@ -37,11 +35,14 @@ const images = {
     "합기도": require('../../../images/sport/합기도.png'),
     "헬스": require('../../../images/sport/헬스.png'),
     "요가": require('../../../images/sport/요가.png'),
+    "종합체육시설": require('../../../images/sport/종합체육시설.png'),
+    "기타": require('../../../images/sport/기타.png')
 };
 
 export default function BySportPage() {
     const navigate = useNavigate();
-    const [ setSelectedSport] = useState("");
+    // eslint-disable-next-line
+    const [selectedSport, setSelectedSport] = useState("");
 
     const handleSportClick = (sport) => {
         setSelectedSport(sport);
@@ -53,8 +54,8 @@ export default function BySportPage() {
             <Reset/>
             <Wrapper>
                 <LogoImg src={Logo} onClick={() => navigate('/')}/>
+                <Title>조회하고싶은 강좌를 선택해 주세요</Title>
                 <Container>
-                    <Title>조회하고싶은 강좌를 선택해 주세요</Title>
                     <BtnWrapper>
                         {Object.entries(images).map(([key, src]) => (
                             <SportBtn key={key} onClick={() => handleSportClick(key)}>

@@ -101,7 +101,7 @@ export default function RecInputPage() {
                                 placeholder="ex) 25"
                                 value={age}
                                 onChange={(e) => setAge(e.target.value)}
-                            />;
+                            />
                         </InputWrapper>
                         <InputWrapper>
                             <InputName>성별</InputName>

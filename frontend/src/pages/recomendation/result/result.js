@@ -97,7 +97,7 @@ export default function RecResultPage() {
                         <SubWrapper>
                             {recommendations.map((rec, index) => (
                                 <Sub key={index}>
-                                    <Number>{index + 1}</Number>
+                                    <Number>0{index + 1}</Number>
                                     <SubImg src={images[rec]} alt={rec} />
                                     <Name>{rec}</Name>
                                 </Sub>

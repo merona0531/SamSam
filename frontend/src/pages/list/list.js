@@ -25,18 +25,19 @@ export default function ListPage() {
     const title = source === 'TrendPage' ? region || "지역" : sport || "스포츠";
 
     // 데이터 생성
-    const contentData = Array.from({ length: 15 }, (_, i) => ({
+    const contentData = Array.from({ length: 25 }, (_, i) => ({
         id: i + 1,
         institution: `기관이름 ${i + 1}`,
         sport: `종목 ${i + 1}`,
         day: `개설요일 ${i + 1}`,
+        time:`개설시간 ${i+1}`,
         address: `주소 ${i + 1}`,
         website: "웹사이트 방문"
     }));
 
     // 페이지 상태 관리
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 12;
+    const itemsPerPage = 20;
 
     // 페이지별 데이터 계산
     const totalPages = Math.ceil(contentData.length / itemsPerPage);
@@ -85,6 +86,8 @@ export default function ListPage() {
                         <VirticalBar />
                         <ResultName>개설요일</ResultName>
                         <VirticalBar />
+                        <ResultName>개설시간</ResultName>
+                        <VirticalBar />
                         <ResultName>주소</ResultName>
                         <VirticalBar />
                         <ResultWName></ResultWName>
@@ -96,6 +99,8 @@ export default function ListPage() {
                             <CName>{item.sport}</CName>
                             <VirticalBar />
                             <CName>{item.day}</CName>
+                            <VirticalBar />
+                            <CName>{item.time}</CName>
                             <VirticalBar />
                             <CName>{item.address}</CName>
                             <VirticalBar />
