@@ -35,7 +35,6 @@ const images = {
     "합기도": require('../../../images/sport/합기도.png'),
     "헬스": require('../../../images/sport/헬스.png'),
     "요가": require('../../../images/sport/요가.png'),
-    "종합체육시설": require('../../../images/sport/종합체육시설.png'),
     "기타": require('../../../images/sport/기타.png')
 };
 
