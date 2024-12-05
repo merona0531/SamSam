@@ -117,7 +117,7 @@ export const DayBtn = styled.button`
 `;
 
 export const ResultNameWrapper = styled.div`
-  width: 1082px;
+  width: 1215px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -170,6 +170,19 @@ export const ResultWName = styled.div`
     width: auto;
   }
 `;
+export const ResultWName2 = styled.div`
+  font-size: 20px;
+  width: 273px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    width: auto;
+  }
+`;
 
 export const VirticalBar = styled.div`
   width: 1px;
@@ -181,14 +194,16 @@ export const VirticalBar = styled.div`
   }
 `;
 
+
+
 export const ContentWrapper = styled.div`
-  width: 1082px;
+  width: 1215px;
   height: 60px;
   background-color: white;
-  border-radius: 0 30px 30px 0;
+  border-radius: 15px;
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 
   @media (max-width: 768px) {
     width: 95%;
@@ -238,10 +253,23 @@ export const CWName = styled.div`
     font-size: 14px;
   }
 `;
+export const CWName2 = styled.div`
+  font-size: 15px;
+  width: 273px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    width: auto;
+    font-size: 14px;
+  }
+`;
+
 
 export const BtnContainer = styled.div`
   display: flex;
-  width: 720px;
+  width: 900px;
   align-items: center;
   justify-content: space-between;
   margin-top: 30px;
@@ -254,11 +282,9 @@ export const BtnContainer = styled.div`
 `;
 
 export const BtnContainer2 = styled.div`
-  width: 720px;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 10px;
-  display: ${({ show }) => (show ? "flex" : "none")};
+  //display: ${({ show }) => (show ? "flex" : "none")};
 
   @media (max-width: 768px) {
     width: 90%;
@@ -276,12 +302,12 @@ export const SelectContainer = styled.div`
 `;
 
 export const Select = styled.select`
-  width: 350px;
+  width: 250px;
   height: 50px;
-  background-color: #d9d9d9;
-  border: none;
-  padding: 15px;
-  font-family: "Regular";
+  border-radius: 15px;
+  border: 3px solid #d9d9d9;
+  background-color: white;
+  padding: 14px;
   font-size: 16px;
 
   @media (max-width: 768px) {

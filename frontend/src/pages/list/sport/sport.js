@@ -10,7 +10,7 @@ const images = {
     "주짓수": require('../../../images/sport/주짓수.png'),
     "유도": require('../../../images/sport/유도.png'),
     "골프": require('../../../images/sport/골프.png'),
-    "베드민턴": require('../../../images/sport/베드민턴.png'),
+    "배드민턴": require('../../../images/sport/베드민턴.png'),
     "크로스핏": require('../../../images/sport/크로스핏.png'),
     "검도": require('../../../images/sport/검도.png'),
     "농구": require('../../../images/sport/농구.png'),
