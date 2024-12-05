@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import ReactDOM from 'react-dom'; // ReactDOM 임포트 추가
+
 import {
     MapContainer,
     Sidebar,
@@ -7,20 +10,28 @@ import {
     LoadMoreButton,
     UpdateButton,
     MapView,
+    TopContainer,
+    BottomContainer,
+    MyLocationButton,
 } from './MapComponentStyle';
+import { LogoContainer, LogoImg } from "../recomendation/result/resultstyle";
+import Logo from "../../images/3355.png";
 
 const MapComponent = () => {
+    const navigate = useNavigate();
     const mapContainer = useRef(null);
     const mapInstance = useRef(null);
     const [facilities, setFacilities] = useState([]);
     const [filteredFacilities, setFilteredFacilities] = useState([]);
     const [visibleFacilities, setVisibleFacilities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [showUpdateButton, setShowUpdateButton] = useState(false); // 업데이트 버튼 표시 여부
     const markers = useRef([]);
     const overlays = useRef([]);
-    const currentLocationMarker = useRef(null);  // 현재 위치 마커
-    const ITEMS_PER_PAGE = 10;
+    const currentLocationMarker = useRef(null); // 현재 위치 마커
+    const ITEMS_PER_PAGE = 12;
 
+    // 시설 데이터를 가져오는 함수
     const fetchFacilities = async () => {
         try {
             const response = await fetch("http://127.0.0.1:5000/api/facilities");
@@ -33,6 +44,11 @@ const MapComponent = () => {
         }
     };
 
+    const handleFacilityProgramClick = (facilityName) => {
+        navigate('/list', { state: { source: 'MapPage', facility : facilityName } }); // 출처와 지역 정보 전달
+    };
+
+    // 지도 초기화 및 이벤트 설정
     useEffect(() => {
         if (!window.kakao) {
             console.error("카카오 맵 API가 로드되지 않았습니다.");
@@ -53,6 +69,9 @@ const MapComponent = () => {
             map.setMaxLevel(13);
             map.setMinLevel(3);
             mapInstance.current = map;
+
+            // 지도 이동 이벤트 등록
+            window.kakao.maps.event.addListener(map, "dragend", () => setShowUpdateButton(true));
         }
 
         if (facilities.length > 0) {
@@ -61,6 +80,7 @@ const MapComponent = () => {
         }
     }, [facilities]);
 
+    // 마커 및 오버레이 추가
     const addMarkers = (facilities) => {
         const currentMap = mapInstance.current;
         markers.current.forEach((marker) => marker.setMap(null));
@@ -75,14 +95,23 @@ const MapComponent = () => {
             marker.setMap(currentMap);
             markers.current.push(marker);
 
-            const overlayContent = `
-        <div style="padding:10px;background:white;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.3);">
-          <p style="margin:0; font-weight:600;">${facility.FCLTY_NM} <span style="font-size:12px; color:gray;">(${facility.INDUTY_NM})</span></p>
-          <p style="margin:0; font-size:12px; color:#555;">${facility.RDNMADR_NM}</p>
-          <button style="margin-top:5px;padding:5px;background:#007BFF;color:white;border:none;border-radius:4px;cursor:pointer;">
-            상세보기
-          </button>
-        </div>`;
+            // overlayContent를 DOM 요소로 생성
+            const overlayContent = document.createElement('div');
+            overlayContent.innerHTML = `
+                <div style="padding:10px;background:white;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+                    <p style="margin:0; font-weight:600;">${facility.FCLTY_NM} 
+                        <span style="font-size:12px; color:gray;">(${facility.INDUTY_NM})</span>
+                    </p>
+                    <p style="margin:0; font-size:12px; color:#555;">${facility.RDNMADR_NM}</p>
+                    <button style="margin-top:5px;padding:10px;cursor:pointer;">강좌 보기</button>
+                </div>
+            `;
+
+            // 버튼 클릭 시 handleFacilityProgramClick 함수 호출
+            overlayContent.querySelector('button').addEventListener('click', () => {
+                handleFacilityProgramClick(facility.FCLTY_NM);
+            });
+
             const overlay = new window.kakao.maps.CustomOverlay({
                 content: overlayContent,
                 position,
@@ -101,6 +130,7 @@ const MapComponent = () => {
         });
     };
 
+    // 현재 지도 범위 내 시설 업데이트
     const updateFacilitiesInMapView = useCallback(() => {
         const currentMap = mapInstance.current;
         if (!currentMap) return;
@@ -113,6 +143,7 @@ const MapComponent = () => {
 
         setFilteredFacilities(filtered);
         setCurrentPage(1);
+        setShowUpdateButton(false); // 업데이트 버튼 숨김
     }, [facilities]);
 
     useEffect(() => {
@@ -135,7 +166,7 @@ const MapComponent = () => {
         }
     };
 
-    // 현재 위치로 이동하는 함수
+    // 현재 위치로 이동
     const moveToCurrentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -147,17 +178,14 @@ const MapComponent = () => {
                     mapInstance.current.setCenter(currentLocation);
                     mapInstance.current.setLevel(9);
 
-                    // 현재 위치 마커 추가
                     if (currentLocationMarker.current) {
-                        currentLocationMarker.current.setMap(null); // 기존 마커 제거
+                        currentLocationMarker.current.setMap(null);
                     }
 
                     const markerImage = new window.kakao.maps.MarkerImage(
                         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
                         new window.kakao.maps.Size(64, 69),
-                        {
-                            offset: new window.kakao.maps.Point(27, 69),
-                        }
+                        { offset: new window.kakao.maps.Point(27, 69) }
                     );
 
                     const marker = new window.kakao.maps.Marker({
@@ -167,7 +195,7 @@ const MapComponent = () => {
                     });
 
                     marker.setMap(mapInstance.current);
-                    currentLocationMarker.current = marker; // 마커를 ref에 저장
+                    currentLocationMarker.current = marker;
                 },
                 (error) => {
                     alert("현재 위치를 가져올 수 없습니다.");
@@ -185,30 +213,39 @@ const MapComponent = () => {
 
     return (
         <MapContainer>
-            <Sidebar>
-                <h2>현재 영역의 체육시설</h2>
-                <button onClick={moveToCurrentLocation} style={{ marginBottom: "20px", padding: "10px", cursor: "pointer" }}>
-                    현재 위치로 이동
-                </button>
-                {visibleFacilities.length > 0 ? (
-                    <FacilityList>
-                        {visibleFacilities.map((facility, index) => (
-                            <li key={index}>
-                                <FacilityButton onClick={() => handleFacilityClick(facility)}>
-                                    {facility.FCLTY_NM}
-                                </FacilityButton>
-                            </li>
-                        ))}
-                    </FacilityList>
-                ) : (
-                    <p>현재 지도 영역에 체육시설이 없습니다.</p>
-                )}
-                {currentPage * ITEMS_PER_PAGE < filteredFacilities.length && (
-                    <LoadMoreButton onClick={handleLoadMore}>더 보기</LoadMoreButton>
-                )}
-                <UpdateButton onClick={updateFacilitiesInMapView}>업데이트</UpdateButton>
-            </Sidebar>
-            <MapView ref={mapContainer} />
+            <TopContainer>
+                <LogoContainer>
+                    <LogoImg src={Logo} onClick={() => navigate("/")} />
+                </LogoContainer>
+            </TopContainer>
+            <BottomContainer>
+                <Sidebar>
+                    <MyLocationButton onClick={moveToCurrentLocation} style={{ marginBottom: "20px", padding: "10px", cursor: "pointer" }}>
+                        내 위치로 이동
+                    </MyLocationButton>
+                    {visibleFacilities.length > 0 ? (
+                        <FacilityList>
+                            {visibleFacilities.map((facility, index) => (
+                                <li key={index}>
+                                    <FacilityButton onClick={() => handleFacilityClick(facility)}>
+                                        {facility.FCLTY_NM}
+                                    </FacilityButton>
+                                </li>
+                            ))}
+                        </FacilityList>
+                    ) : (
+                        <p>현재 지도 영역에 체육시설이 없습니다.</p>
+                    )}
+                    {currentPage * ITEMS_PER_PAGE < filteredFacilities.length && (
+                        <LoadMoreButton onClick={handleLoadMore}>더 보기</LoadMoreButton>
+                    )}
+                </Sidebar>
+                <MapView ref={mapContainer}>
+                    {showUpdateButton && (
+                        <UpdateButton onClick={updateFacilitiesInMapView}>현 지도에서 시설 검색</UpdateButton>
+                    )}
+                </MapView>
+            </BottomContainer>
         </MapContainer>
     );
 };
