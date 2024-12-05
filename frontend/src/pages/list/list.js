@@ -33,6 +33,17 @@ const paramsSerializer = (params) => {
     return serializedParams.toString();
 };
 
+const handleApplyClick = (url) => {
+    try {
+        window.open(url, "_blank"); // 새 탭에서 열기
+    } catch (error) {
+        console.error("URL을 여는 데 실패했습니다:", error);
+        alert("URL을 열 수 없습니다.");
+    }
+};
+
+
+
 export default function ListPage() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -44,7 +55,9 @@ export default function ListPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
-    const [selectedDays, setSelectedDays] = useState([]); // 선택된 요일 상태 추가
+    const [searchKeyword, setSearchKeyword] = useState(""); // 실제 검색에 사용되는 키워드
+    const [inputKeyword, setInputKeyword] = useState(""); // 검색창에 입력 중인 키워드
+    const [selectedDays, setSelectedDays] = useState([]);
 
     const itemsPerPage = 12;
 
@@ -65,11 +78,12 @@ export default function ListPage() {
                 params: {
                     region: region || "",
                     time: "",
-                    days: selectedDays, // 여러 값을 배열로 전달
+                    days: selectedDays,
                     page: page,
                     limit: itemsPerPage,
+                    search: searchKeyword, // 실제 검색 키워드로 요청
                 },
-                paramsSerializer: paramsSerializer // paramsSerializer 적용
+                paramsSerializer: paramsSerializer
             });
 
             const { data, total_count, total_pages } = response.data;
@@ -79,7 +93,13 @@ export default function ListPage() {
         } catch (error) {
             console.error("데이터를 불러오는 데 실패했습니다:", error);
         }
-    }, [region, selectedDays]); // selectedDays가 변경될 때마다 fetchPrograms 함수가 새로 생성됨
+    }, [region, selectedDays, searchKeyword]);
+
+    // 검색 버튼 또는 엔터를 눌렀을 때 검색 실행
+    const handleSearch = () => {
+        setSearchKeyword(inputKeyword); // 입력 중인 키워드를 실제 검색 키워드로 설정
+        setCurrentPage(1); // 새로운 검색에서는 페이지를 1로 초기화
+    };
 
     // 페이지 데이터 호출
     useEffect(() => {
@@ -92,24 +112,15 @@ export default function ListPage() {
         }
     };
 
-    const placeholderText = source === "TrendPage" ? "종목을 검색해보세요." : "지역을 검색해보세요.";
-
-    // 요일 선택 핸들러
     const toggleDaySelection = (day) => {
         setSelectedDays((prevSelectedDays) =>
             prevSelectedDays.includes(day)
-                ? prevSelectedDays.filter((d) => d !== day) // 이미 선택된 요일은 제거
-                : [...prevSelectedDays, day] // 선택된 요일 추가
+                ? prevSelectedDays.filter((d) => d !== day)
+                : [...prevSelectedDays, day]
         );
     };
 
-    const handleApplyClick = (url) => {
-        if (url) {
-            window.open(url, "_blank");
-        } else {
-            alert("URL이 없습니다.");
-        }
-    };
+    const placeholderText = source === "TrendPage" ? "종목을 검색해보세요." : "지역을 검색해보세요.";
 
     return (
         <>
@@ -121,10 +132,15 @@ export default function ListPage() {
                 <Container>
                     <Title>{title}</Title>
                     <SearchBar>
-                        <Search placeholder={placeholderText} />
-                        <Magnifier>
+                        <Search
+                            placeholder={placeholderText}
+                            value={inputKeyword}
+                            onChange={(e) => setInputKeyword(e.target.value)} // 입력 중인 키워드 업데이트
+                            onKeyPress={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키로 검색 실행
+                        />
+                        <Magnifier onClick={handleSearch}> {/* 검색 버튼으로 검색 실행 */}
                             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M24.9 27L15.45 17.55C14.7 18.15 13.8375 18.625 12.8625 18.975C11.8875 19.325 10.85 19.5 9.75 19.5C7.025 19.5 4.719 18.556 2.832 16.668C0.945001 14.78 0.00100079 12.474 7.93651e-07 9.75C-0.000999206 7.026 0.943001 4.72 2.832 2.832C4.721 0.944 7.027 0 9.75 0C12.473 0 14.7795 0.944 16.6695 2.832C18.5595 4.72 19.503 7.026 19.5 9.75C19.5 10.85 19.325 11.8875 18.975 12.8625C18.625 13.8375 18.15 14.7 17.55 15.45L27 24.9L24.9 27ZM9.75 16.5C11.625 16.5 13.219 15.844 14.532 14.532C15.845 13.22 16.501 11.626 16.5 9.75C16.499 7.874 15.843 6.2805 14.532 4.9695C13.221 3.6585 11.627 3.002 9.75 3C7.873 2.998 6.2795 3.6545 4.9695 4.9695C3.6595 6.2845 3.003 7.878 3 9.75C2.997 11.622 3.6535 13.216 4.9695 14.532C6.2855 15.848 7.879 16.504 9.75 16.5Z" fill="#FC72C0" />
+                                <path d="..." fill="#FC72C0" />
                             </svg>
                         </Magnifier>
                     </SearchBar>
@@ -160,31 +176,18 @@ export default function ListPage() {
                             <ContentWrapper key={item.id || index}>
                                 <CIName>{item.FCLTY_NM}</CIName>
                                 <VirticalBar />
-                                <CName>{item.PROGRM_NM}</CName>
+                                <CName>{item.SPORT}</CName>
                                 <VirticalBar />
                                 <CName>{item.PROGRM_ESTBL_WKDAY_NM}</CName>
                                 <VirticalBar />
                                 <CName>{item.FCLTY_ADDR}</CName>
                                 <VirticalBar />
-                                <button onClick={() => handleApplyClick(item.APPL_URL)}>
+                                <button onClick={() => handleApplyClick(item.HMPG_URL)}>
                                     신청하러 가기
                                 </button>
                             </ContentWrapper>
                         ))
                     )}
-
-                    {/* 페이지네이션 버튼 */}
-                    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", marginBottom: "40px" }}>
-                        {[...Array(totalPages)].map((_, i) => (
-                            <button
-                                key={i + 1}
-                                style={{ margin: "0 5px", fontWeight: currentPage === i + 1 ? "bold" : "normal" }}
-                                onClick={() => handlePageChange(i + 1)}
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
-                    </div>
                 </Container>
             </Wrapper>
         </>

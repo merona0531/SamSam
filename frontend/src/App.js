@@ -6,6 +6,9 @@ import List2 from './pages/list2/list2'
 import List from './pages/list/list'
 import RecInput from './pages/recomendation/input/input'
 import RecResult from './pages/recomendation/result/result'
+import Map from './pages/map/MapComponent'
+
+
 function App() {
   return (
       <BrowserRouter>
@@ -17,6 +20,8 @@ function App() {
           <Route path="/list/bysport" element={<Sport />} />
           <Route path="/recomendation/input" element={<RecInput />} />
           <Route path="/recomendation/result" element={<RecResult />} />
+            <Route path="/map" element={<Map />} />
+
         </Routes>
       </BrowserRouter>
   );
