@@ -1,74 +1,131 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Reset } from "styled-reset";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
-     BtnContainer, BtnContainer2, CIName, CName,
+    BtnContainer, BtnContainer2, CIName, CName,
     Container, ContentWrapper, CWName, DayBtn,
     Magnifier, ResultInstitutionName, ResultName,
-    ResultNameWrapper, ResultWName,
-    Search,
-    SearchBar, Select,
-     SelectContainer, SelectDay,
-    Title, VirticalBar,
-    Wrapper
+    ResultNameWrapper, ResultWName, Search,
+    SearchBar, Select, SelectContainer, SelectDay,
+    Title, VirticalBar, Wrapper,
 } from "./liststyle";
 import { LogoContainer, LogoImg } from "../recomendation/result/resultstyle";
 import Logo from "../../images/3355.png";
-import { useNavigate } from "react-router-dom";
 
 export default function ListPage() {
     const navigate = useNavigate();
-    const location = useLocation(); // 선택된 종목 정보 가져오기
+    const location = useLocation();
     const [selectedAge, setSelectedAge] = useState("");
     const [selectedDays, setSelectedDays] = useState([]);
-    const [selectedTime, setSelectedTime] = useState([]);
+    const [selectedTime, setSelectedTime] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [data, setData] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
 
     const { source, region, sport } = location.state || {};
+    const title = source === "TrendPage" ? region || "지역" : sport || "스포츠";
 
-    const title = source === 'TrendPage' ? region || "지역" : sport || "스포츠";
+    // 요일 변환 함수
+    const convertDayToCode = (day) => {
+        const dayMap = {
+            "월": "Mon",
+            "화": "Tue",
+            "수": "Wed",
+            "목": "Thu",
+            "금": "Fri",
+            "토": "Sat",
+            "일": "Sun",
+        };
+        return dayMap[day];
+    };
 
-    // 데이터 생성
-    const contentData = Array.from({ length: 25 }, (_, i) => ({
-        id: i + 1,
-        institution: `기관이름 ${i + 1}`,
-        sport: `종목 ${i + 1}`,
-        day: `개설요일 ${i + 1}`,
-        time:`개설시간 ${i+1}`,
-        address: `주소 ${i + 1}`,
-        website: "웹사이트 방문"
-    }));
+    // 연령대 변환 함수
+    const convertAgeToTarget = (age) => {
+        const ageMap = {
+            "성인": "adult",
+            "청소년": "teen",
+            "유아/어린이": "child",
+            "노인": "senior",
+            "장애인": "disable",
+        };
+        return ageMap[age];
+    };
 
-    // 페이지 상태 관리
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20;
+    const convertRegion = (region) => {
+        const regionMap = {
+            대구: "대구광역시",
+            부산: "부산광역시",
+            서울: "서울특별시",
+            // 필요한 경우 추가 지역을 여기에 추가
+        };
+        return regionMap[region] || region;  // 변환된 값이 없다면 원래 값을 반환
+    };
 
-    // 페이지별 데이터 계산
-    const totalPages = Math.ceil(contentData.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentData = contentData.slice(startIndex, endIndex);
+    // API 요청 함수
+    const fetchData = async () => {
+        try {
+            const daysParam = selectedDays.map((day) => convertDayToCode(day));
+            const params = {
+                region: source === "TrendPage" ? convertRegion(title) : undefined,
+                sport: source === "SportPage" && title ? title : undefined,
+                time:
+                    selectedTime === "오전"
+                        ? "morning"
+                        : selectedTime === "오후"
+                            ? "afternoon"
+                            : undefined,
+                target: convertAgeToTarget(selectedAge),
+                page: currentPage,
+                limit: 20,
+            };
 
-    // 페이지 변경 핸들러
-    const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setCurrentPage(newPage);
+            const queryString = Object.entries(params)
+                .filter(([_, value]) => value !== undefined && value !== "")
+                .map(([key, value]) =>
+                    Array.isArray(value)
+                        ? value.map((v) => `${key}=${v}`).join("&")
+                        : `${key}=${value}`
+                )
+                .join("&");
+
+            const daysQueryString = daysParam.map((day) => `days=${day}`).join("&");
+
+            const fullUrl = `http://127.0.0.1:5000/api/programs?${queryString}&${daysQueryString}`;
+            console.log("요청 URL:", fullUrl);
+
+            const response = await axios.get(fullUrl);  // 여기에 수정된 URL 사용
+            console.log("서버 응답 데이터:", response.data);
+
+            // 데이터 업데이트 후 콘솔 로그
+            setData(response.data.data || []);
+            console.log("상태에 반영된 데이터:", response.data.data);
+
+            // 페이지 수 계산
+            setTotalPages(Math.ceil((response.data.total || 0) / 20));
+        } catch (error) {
+            console.error("데이터 가져오기 오류:", error);
         }
     };
 
-    const placeholderText = source === "TrendPage" ? "종목을 검색해보세요." : "지역을 검색해보세요.";
 
-    const handleAgeChange = (event) => {
-        setSelectedAge(event.target.value);
-    };
-    const handleTimeChange = (event) => {
-        setSelectedTime(event.target.value);
-    };
 
+
+    // 선택된 요일 토글
     const toggleDay = (day) => {
         setSelectedDays((prev) =>
             prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
         );
     };
+
+    // 필터 변경 또는 페이지 이동 시 데이터 요청
+    useEffect(() => {
+        console.log("필터 또는 페이지 변경 시 fetchData 호출");
+        fetchData();
+    }, [selectedAge, selectedDays, selectedTime, currentPage, title]);
+
+    const handleAgeChange = (e) => setSelectedAge(e.target.value);
+    const handleTimeChange = (e) => setSelectedTime(e.target.value);
 
     return (
         <>
@@ -80,12 +137,8 @@ export default function ListPage() {
                 <Container>
                     <Title>{title}</Title>
                     <SearchBar>
-                        <Search  placeholder={placeholderText}/>
-                        <Magnifier>
-                            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M24.9 27L15.45 17.55C14.7 18.15 13.8375 18.625 12.8625 18.975C11.8875 19.325 10.85 19.5 9.75 19.5C7.025 19.5 4.719 18.556 2.832 16.668C0.945001 14.78 0.00100079 12.474 7.93651e-07 9.75C-0.000999206 7.026 0.943001 4.72 2.832 2.832C4.721 0.944 7.027 0 9.75 0C12.473 0 14.7795 0.944 16.6695 2.832C18.5595 4.72 19.503 7.026 19.5 9.75C19.5 10.85 19.325 11.8875 18.975 12.8625C18.625 13.8375 18.15 14.7 17.55 15.45L27 24.9L24.9 27ZM9.75 16.5C11.625 16.5 13.219 15.844 14.532 14.532C15.845 13.22 16.501 11.626 16.5 9.75C16.499 7.874 15.843 6.2805 14.532 4.9695C13.221 3.6585 11.627 3.002 9.75 3C7.873 2.998 6.2795 3.6545 4.9695 4.9695C3.6595 6.2845 3.003 7.878 3 9.75C2.997 11.622 3.6535 13.216 4.9695 14.532C6.2855 15.848 7.879 16.504 9.75 16.5Z" fill="#FC72C0" />
-                            </svg>
-                        </Magnifier>
+                        <Search placeholder={`검색`} />
+                        <Magnifier></Magnifier>
                     </SearchBar>
                     <BtnContainer>
                         <SelectContainer>
@@ -110,15 +163,7 @@ export default function ListPage() {
                             ))}
                         </SelectDay>
                     </BtnContainer>
-                    <BtnContainer2 show={selectedDays.length > 0}>
-                        <SelectContainer>
-                            <Select value={selectedTime} onChange={handleTimeChange}>
-                                <option value="">시간대 선택</option>
-                                <option value="오전">오전</option>
-                                <option value="오후">오후</option>
-                            </Select>
-                        </SelectContainer>
-                    </BtnContainer2>
+
                     <ResultNameWrapper>
                         <ResultInstitutionName>기관이름</ResultInstitutionName>
                         <VirticalBar />
@@ -130,36 +175,37 @@ export default function ListPage() {
                         <VirticalBar />
                         <ResultName>주소</ResultName>
                         <VirticalBar />
-                        <ResultWName></ResultWName>
+                        <ResultWName>웹사이트</ResultWName>
                     </ResultNameWrapper>
-                    {currentData.map((item) => (
-                        <ContentWrapper key={item.id}>
-                            <CIName>{item.institution}</CIName>
+                    {data.map((item) => (
+                        <ContentWrapper key={item.CTPRVN_CD}>
+                            <CIName>{item.FCLTY_NM}</CIName>
                             <VirticalBar />
-                            <CName>{item.sport}</CName>
+                            <CName>{item.SPORT}</CName>
                             <VirticalBar />
-                            <CName>{item.day}</CName>
+                            <CName>{item.PROGRM_ESTBL_WKDAY_NM}</CName>
                             <VirticalBar />
-                            <CName>{item.time}</CName>
+                            <CName>{item.PROGRM_ESTBL_TIZN_VALUE}</CName>
                             <VirticalBar />
-                            <CName>{item.address}</CName>
+                            <CName>{item.FCLTY_ADDR}</CName>
                             <VirticalBar />
-                            <CWName>{item.website}</CWName>
+                            <CWName>
+                                <a href={item.HMPG_URL} target="_blank" rel="noopener noreferrer">
+                                    방문하기
+                                </a>
+                            </CWName>
                         </ContentWrapper>
                     ))}
-
-                    {/* 페이지네이션 버튼 */}
-                    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", marginBottom:"40px"}}>
+                    <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
                         {[...Array(totalPages)].map((_, i) => (
                             <button
-                                key={i + 1}
+                                key={i}
                                 style={{ margin: "0 5px", fontWeight: currentPage === i + 1 ? "bold" : "normal" }}
-                                onClick={() => handlePageChange(i + 1)}
+                                onClick={() => setCurrentPage(i + 1)}
                             >
                                 {i + 1}
                             </button>
                         ))}
-
                     </div>
                 </Container>
             </Wrapper>
