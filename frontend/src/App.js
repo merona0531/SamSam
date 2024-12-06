@@ -3,7 +3,6 @@ import MainPage from '../src/pages/main/main'
 import Trend from './pages/list/region/trend'
 import Sport from './pages/list/sport/sport'
 import List2 from './pages/list3/list3'
-import List from './pages/list/list'
 import RecInput from './pages/recomendation/input/input'
 import RecResult from './pages/recomendation/result/result'
 import Map from './pages/map/MapComponent'
@@ -16,7 +15,6 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/list/byregion" element={<Trend />} />
           <Route path="/list" element={<List2 />} />
-          <Route path="/listtest" element={<List />} />
           <Route path="/list/bysport" element={<Sport />} />
           <Route path="/recomendation/input" element={<RecInput />} />
           <Route path="/recomendation/result" element={<RecResult />} />
