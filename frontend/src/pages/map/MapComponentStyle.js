@@ -10,7 +10,7 @@ width: 100%;
 `;
 
 export const TopContainer = styled.div`
-    height: 90px; /* 고정된 높이 */
+    height: 70px; /* 고정된 높이 */
     padding-left: 20px;
     width: 100%;
     display: flex;
@@ -26,11 +26,24 @@ export const BottomContainer = styled.div`
 // 사이드바 스타일
 export const Sidebar = styled.div`
   flex: 0.30;
-    padding-left: 20px;
   background-color: #f0f0f0;
-  height: 88vh;
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: scroll;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+  }
   h2 {
     font-size: 24px;
     font-weight: bold;
@@ -41,8 +54,8 @@ export const Sidebar = styled.div`
 // 시설 목록 리스트 스타일
 export const FacilityList = styled.ul`
   list-style: none;
-  padding: 0;
-  margin: 0;
+ 
+  width: 90%;
 
   li {
     margin-bottom: 15px;
@@ -52,7 +65,7 @@ export const FacilityList = styled.ul`
 // 시설 리스트 아이템 버튼 스타일
 export const FacilityButton = styled.button`
     padding: 10px;
-    border: 1px solid #ccc;
+  border: 1px solid #ccc;
     border-radius: 10px;
     background: #fff;
     cursor: pointer;
@@ -147,8 +160,7 @@ export const MyLocationButton = styled.button`
 
     /* Sidebar의 가운데 위치 */
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    
 `;
 
 
