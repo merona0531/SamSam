@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../src/pages/main/main'
 import Trend from './pages/list/region/trend'
 import Sport from './pages/list/sport/sport'
-import List2 from './pages/list2/list2'
+import List2 from './pages/list3/list3'
 import List from './pages/list/list'
 import RecInput from './pages/recomendation/input/input'
 import RecResult from './pages/recomendation/result/result'
