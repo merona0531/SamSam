@@ -13,7 +13,22 @@ const images = {
     "요가": require('../../../images/요가.png'),
     "필라테스": require('../../../images/필라테스.png'),
     "골프": require('../../../images/골프.png'),
-    "베드민턴": require('../../../images/베드민턴.png'),
+    "배드민턴": require('../../../images/배드민턴.png'),
+    "농구": require('../../../images/농구.png'),
+    "야구": require('../../../images/야구.png'),
+    "무용": require('../../../images/무용.png'),
+    "축구": require('../../../images/축구.png'),
+    "펜싱": require('../../../images/펜싱.png'),
+    "복싱": require('../../../images/복싱.png'),
+    "빙상": require('../../../images/빙상.png'),
+    "수영": require('../../../images/수영.png'),
+    "탁구": require('../../../images/탁구.png'),
+    "롤러인라인": require('../../../images/롤러인라인.png'),
+    "줄넘기": require('../../../images/줄넘기.png'),
+    "승마": require('../../../images/승마.png'),
+    "테니스": require('../../../images/테니스.png'),
+    "클라이밍": require('../../../images/클라이밍.png'),
+    "크로스핏": require('../../../images/크로스핏.png'),
 };
 
 export default function RecResultPage() {

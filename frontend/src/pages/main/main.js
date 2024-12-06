@@ -12,7 +12,7 @@ import {
 } from "./mainstyle.js";
 import {useNavigate} from "react-router-dom";
 
-import MainImage from '../../images/img.jpg'
+import MainImage from '../../images/배경화면.jpg'
 import Logo from '../../images/samsam.png'
 
 
@@ -39,7 +39,7 @@ export default function MainPage() {
                                     <Virtical/>
                                     <MButton onClick={() => navigate('/list/bysport')}>종목별</MButton>
                                     <Virtical/>
-                                    <RButton onClick={() => navigate('/')}>지도로 확인해보기</RButton>
+                                    <RButton onClick={() => navigate('/map')}>지도로 확인해보기</RButton>
                                 </div>
                             </ListButtonWrapper>
                             <Button onClick={() => navigate('/recomendation/input')}>유사도 추천</Button>
