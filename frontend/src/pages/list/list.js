@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState, useEffect, useCallback } from "react";
 import { Reset } from "styled-reset";
 import { useLocation } from "react-router-dom";

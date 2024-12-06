@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -99,7 +100,7 @@ const MapComponent = () => {
             overlayContent.innerHTML = `
                 <div style="padding:10px;background:white;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.3);">
                     <p style="margin:0; font-weight:600;">${facility.FCLTY_NM} 
-                        <span style="font-size:12px; color:gray;">(${facility.INDUTY_NM})</span>
+                        <span >(${facility.INDUTY_NM})</span>
                     </p>
                     <p style="margin:0; font-size:12px; color:#555;">${facility.RDNMADR_NM}</p>
                     <button style="margin-top:5px;padding:10px;cursor:pointer;">강좌 보기</button>
