@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-
-
-
-
-
-
-
 // 전체 페이지 레이아웃
 export const MapContainer = styled.div`
   display: flex;
@@ -35,7 +28,7 @@ export const Sidebar = styled.div`
   flex: 0.30;
     padding-left: 20px;
   background-color: #f0f0f0;
-  height: 100%;
+  height: 88vh;
   overflow-y: scroll;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   h2 {
