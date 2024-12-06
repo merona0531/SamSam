@@ -211,7 +211,7 @@ export const Title = styled.div`
 `;
 
 export const Virtical=styled.div`
-  width: 2px;
+  width: 1px;
   height: 50px;
   background-color: white;
 `
