@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
     BtnContainer, BtnContainer2, CIName, CName,
     Container, ContentWrapper, CWName, CWName2, DayBtn,
-    Magnifier, ResultInstitutionName, ResultName,
+    Magnifier, Magnifier2, ResultInstitutionName, ResultName,
     ResultNameWrapper, ResultWName, ResultWName2, Search,
     SearchBar, Select, SelectContainer, SelectDay,
     Title, VirticalBar, Wrapper,
@@ -85,7 +85,6 @@ export default function ListPage() {
                 search: currentSearch || undefined, // 검색어 추가
             };
 
-            // 지역 및 스포츠 필터 추가 (검색어가 없을 경우만)
             if (!currentSearch) {
                 if (source === "TrendPage") {
                     params.region = convertRegion(title);
@@ -123,8 +122,7 @@ export default function ListPage() {
         }
     };
 
-
-
+    
     // 선택된 요일 토글
     const toggleDay = (day) => {
         setSelectedDays((prev) =>
@@ -155,6 +153,10 @@ export default function ListPage() {
                 <Container>
                     <Title>{title}</Title>
                     <SearchBar>
+                        <Magnifier2>
+                            <option value="">{title}</option>
+                            <option value="성인">전체</option>
+                        </Magnifier2>
                         <Search
                             placeholder="검색"
                             value={searchQuery}

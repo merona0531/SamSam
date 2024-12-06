@@ -61,9 +61,8 @@ export const SearchBar = styled.div`
 `;
 
 export const Search = styled.input`
-  width: 90%;
+  width: 75%;
   background-color: transparent;
-  margin-left: 20px;
   border: none;
   font-size: 17px;
 
@@ -80,6 +79,17 @@ export const Magnifier = styled.div`
   border: none;
   background-color: transparent;
   cursor: pointer;
+`;
+export const Magnifier2 = styled.select`
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #fdb9df;
+  border-radius: 30px 0 0 30px;
+  cursor: pointer;
+  overflow: visible;
 `;
 
 export const SelectDay = styled.div`

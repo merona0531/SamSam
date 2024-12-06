@@ -54,7 +54,7 @@ export const RoundedRectangle = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  width: 592px;
+  width: 630px;
   height: 428px;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
   background-color: rgba(253, 185, 223, 0.9);
@@ -89,7 +89,7 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const ListButtonWrapper = styled.div`
-  width: 430px;
+  width: 500px;
   height: 165px;
   font-size: 22px;
   color: #000000;
@@ -112,8 +112,8 @@ export const ListButtonWrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 411px;
-  height: 70px;
+  width: 450px;
+  height: 65px;
   font-size: 22px;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
   color: #ffffff;
@@ -136,13 +136,13 @@ export const Button = styled.button`
 `;
 
 export const LButton = styled.button`
-  width: 152px;
+  width: 150px;
   height: 50px;
   font-size: 22px;
   background-color: #001e5a;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
   border: none;
-  border-radius: 30px;
+  border-radius: 30px 0 0 30px;
   transition: all 0.2s ease-in-out;
   color: white;
 
@@ -158,6 +158,49 @@ export const LButton = styled.button`
   }
 `;
 
+export const MButton = styled.button`
+  width: 150px;
+  height: 50px;
+  font-size: 22px;
+  background-color: #001e5a;
+  box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
+  border: none;
+  transition: all 0.2s ease-in-out;
+  color: white;
+
+  &:hover {
+    background-color: #ff85c1;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+   width: 200px; /* 모바일에서 버튼 너비를 80%로 */
+    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+    height: 45px; /* 모바일에서 버튼 높이 줄이기 */
+  }
+`;
+export const RButton = styled.button`
+  width: 150px;
+  height: 50px;
+  font-size: 16px;
+  background-color: #001e5a;
+  box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 0 30px 30px 0;
+  transition: all 0.2s ease-in-out;
+  color: white;
+
+  &:hover {
+    background-color: #ff85c1;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+   width: 200px; /* 모바일에서 버튼 너비를 80%로 */
+    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+    height: 45px; /* 모바일에서 버튼 높이 줄이기 */
+  }
+`;
 export const Title = styled.div`
   font-size: 18px;
   z-index: 2;
@@ -166,3 +209,9 @@ export const Title = styled.div`
     font-size: 16px; /* 모바일에서 글자 크기 줄이기 */
   }
 `;
+
+export const Virtical=styled.div`
+  width: 2px;
+  height: 50px;
+  background-color: white;
+`

@@ -57,7 +57,7 @@ export default function RecInputPage() {
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/recommend', {
+            const response = await fetch('https://backend-icy-brook-6035.fly.dev', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ import {
     ButtonWrapper,
     Button,
     Title,
-    ListButtonWrapper, LButton
+    ListButtonWrapper, LButton, RButton, MButton, Virtical
 } from "./mainstyle.js";
 import {useNavigate} from "react-router-dom";
 
@@ -34,9 +34,12 @@ export default function MainPage() {
                         <ButtonWrapper>
                             <ListButtonWrapper>
                                 전국 체육시설 스포츠강좌 리스트
-                                <div style={{display:'flex', width:'338px', justifyContent:'space-between', marginTop:'20px'}}>
+                                <div style={{display:'flex', width:'454px', justifyContent:'space-between', marginTop:'20px'}}>
                                     <LButton onClick={() => navigate('/list/byregion')}>지역별</LButton>
-                                    <LButton onClick={() => navigate('/list/bysport')}>종목별</LButton>
+                                    <Virtical/>
+                                    <MButton onClick={() => navigate('/list/bysport')}>종목별</MButton>
+                                    <Virtical/>
+                                    <RButton onClick={() => navigate('/')}>지도로 확인해보기</RButton>
                                 </div>
                             </ListButtonWrapper>
                             <Button onClick={() => navigate('/recomendation/input')}>유사도 추천</Button>
