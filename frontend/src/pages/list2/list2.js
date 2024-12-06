@@ -109,7 +109,7 @@ export default function ListPage() {
                 queryString += `&${daysQueryString}`;
             }
 
-            const fullUrl = `http://127.0.0.1:5000/api/programs?${queryString}`;
+            const fullUrl = `https://samsam.up.railway.app/api/programs${queryString}`;
             console.log("요청 URL:", fullUrl);
 
             const response = await axios.get(fullUrl);

@@ -59,7 +59,7 @@ const MapComponent = () => {
     // 시설 데이터를 가져오는 함수
     const fetchFacilities = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:5000/api/facilities");
+            const response = await fetch("https://samsam.up.railway.app/api/facilities");
             const data = await response.json();
             if (data && data.data) {
                 setFacilities(data.data);
