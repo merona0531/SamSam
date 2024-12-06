@@ -125,6 +125,7 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #ff85c1;
+    color: black;
     transform: scale(1.05);
   }
 
@@ -149,6 +150,7 @@ export const LButton = styled.button`
   &:hover {
     background-color: #ff85c1;
     transform: scale(1.05);
+    color: black;
   }
 
   @media (max-width: 768px) {
@@ -170,6 +172,7 @@ export const MButton = styled.button`
 
   &:hover {
     background-color: #ff85c1;
+    color: black;
     transform: scale(1.05);
   }
 
@@ -192,6 +195,7 @@ export const RButton = styled.button`
 
   &:hover {
     background-color: #ff85c1;
+    color: black;
     transform: scale(1.05);
   }
 
@@ -211,7 +215,7 @@ export const Title = styled.div`
 `;
 
 export const Virtical=styled.div`
-  width: 1px;
+  width: 2px;
   height: 50px;
-  background-color: white;
+  background-color: transparent;
 `
