@@ -13,9 +13,11 @@ import {
     TopContainer,
     BottomContainer,
     MyLocationButton,
+    SearchBar,
 } from './MapComponentStyle';
 import { LogoContainer, LogoImg } from "../recomendation/result/resultstyle";
 import Logo from "../../images/3355.png";
+import {Reset} from "styled-reset";
 
 const MapComponent = () => {
     const navigate = useNavigate();
@@ -29,7 +31,30 @@ const MapComponent = () => {
     const markers = useRef([]);
     const overlays = useRef([]);
     const currentLocationMarker = useRef(null); // 현재 위치 마커
-    const ITEMS_PER_PAGE = 12;
+    const ITEMS_PER_PAGE = 7;
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [noResultsMessage, setNoResultsMessage] = useState(""); // 결과 메시지 상태
+
+    // 시설 데이터 필터링 함수
+    const handleSearch = () => {
+        const filtered = facilities.filter((facility) =>
+            facility.FCLTY_NM.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredFacilities(filtered);
+        setCurrentPage(1); // 검색 결과에 따른 페이지 초기화
+        if (filtered.length === 0) {
+            setNoResultsMessage("검색 결과가 없습니다."); // 검색 결과가 없으면 메시지 표시
+        } else {
+            setNoResultsMessage(""); // 결과가 있으면 메시지 숨김
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    };
 
     // 시설 데이터를 가져오는 함수
     const fetchFacilities = async () => {
@@ -45,7 +70,7 @@ const MapComponent = () => {
     };
 
     const handleFacilityProgramClick = (facilityName) => {
-        navigate('/list', { state: { source: 'MapPage', facility : facilityName } }); // 출처와 지역 정보 전달
+        navigate('/list', { state: { source: 'MapPage', facility: facilityName } }); // 출처와 지역 정보 전달
     };
 
     // 지도 초기화 및 이벤트 설정
@@ -141,6 +166,12 @@ const MapComponent = () => {
             return bounds.contain(facilityPosition);
         });
 
+        if (filtered.length === 0) {
+            setNoResultsMessage("현재 지도 영역에 체육시설이 없습니다."); // 지도 범위 내 시설이 없으면 메시지 표시
+        } else {
+            setNoResultsMessage(""); // 시설이 있으면 메시지 숨김
+        }
+
         setFilteredFacilities(filtered);
         setCurrentPage(1);
         setShowUpdateButton(false); // 업데이트 버튼 숨김
@@ -212,41 +243,84 @@ const MapComponent = () => {
     }, []);
 
     return (
-        <MapContainer>
-            <TopContainer>
-                <LogoContainer>
-                    <LogoImg src={Logo} onClick={() => navigate("/")} />
-                </LogoContainer>
-            </TopContainer>
-            <BottomContainer>
-                <Sidebar>
-                    <MyLocationButton onClick={moveToCurrentLocation} style={{ marginBottom: "20px", padding: "10px", cursor: "pointer" }}>
-                        내 위치로 이동
-                    </MyLocationButton>
-                    {visibleFacilities.length > 0 ? (
-                        <FacilityList>
-                            {visibleFacilities.map((facility, index) => (
-                                <li key={index}>
-                                    <FacilityButton onClick={() => handleFacilityClick(facility)}>
-                                        {facility.FCLTY_NM}
-                                    </FacilityButton>
-                                </li>
-                            ))}
-                        </FacilityList>
-                    ) : (
-                        <p>현재 지도 영역에 체육시설이 없습니다.</p>
-                    )}
-                    {currentPage * ITEMS_PER_PAGE < filteredFacilities.length && (
-                        <LoadMoreButton onClick={handleLoadMore}>더 보기</LoadMoreButton>
-                    )}
-                </Sidebar>
-                <MapView ref={mapContainer}>
-                    {showUpdateButton && (
-                        <UpdateButton onClick={updateFacilitiesInMapView}>현 지도에서 시설 검색</UpdateButton>
-                    )}
-                </MapView>
-            </BottomContainer>
-        </MapContainer>
+        <>
+        <Reset/>
+
+            <MapContainer>
+                <TopContainer>
+                    <LogoContainer>
+                        <LogoImg src={Logo} onClick={() => navigate("/")} />
+                    </LogoContainer>
+                </TopContainer>
+                <BottomContainer>
+                    <Sidebar>
+                        {/* 검색바 추가 */}
+                        <SearchBar>
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="시설 이름 검색"
+                                onKeyPress={handleKeyPress} // 엔터 키 감지
+                            />
+                            <button onClick={handleSearch}>검색</button>
+                        </SearchBar>
+                        <MyLocationButton onClick={moveToCurrentLocation} style={{ marginBottom: "20px", padding: "10px", cursor: "pointer" }}>
+                            내 위치로 이동
+                        </MyLocationButton>
+                        {noResultsMessage && <p>{noResultsMessage}</p>} {/* 결과 메시지 출력 */}
+                        {visibleFacilities.length > 0 ? (
+                            <FacilityList>
+                                {visibleFacilities.map((facility, index) => (
+                                    <li key={index}>
+                                        <FacilityButton
+                                            onClick={() => handleFacilityClick(facility)}
+                                            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+                                        >
+                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                        {facility.FCLTY_NM}
+                    </span>
+                                                <span
+                                                    style={{
+                                                        fontSize: "12px",
+                                                        color: "#777",
+                                                        marginLeft: "10px"
+                                                    }}
+                                                >
+                        ({facility.INDUTY_NM}) {/* 산업명 표시 */}
+                    </span>
+                                            </div>
+                                            <span
+                                                style={{
+                                                    fontSize: "14px",
+                                                    color: "#555",
+                                                    marginTop: "4px" // 위에서 아래로 간격을 추가
+                                                }}
+                                            >
+                    {facility.RDNMADR_NM} {/* 주소 표시 */}
+                </span>
+                                        </FacilityButton>
+                                    </li>
+                                ))}
+                            </FacilityList>
+
+                        ) : (
+                            !noResultsMessage && <p>현재 지도 영역에 체육시설이 없습니다.</p>
+                        )}
+                        {currentPage * ITEMS_PER_PAGE < filteredFacilities.length && (
+                            <LoadMoreButton onClick={handleLoadMore}>더 보기</LoadMoreButton>
+                        )}
+                    </Sidebar>
+                    <MapView ref={mapContainer}>
+                        {showUpdateButton && (
+                            <UpdateButton onClick={updateFacilitiesInMapView}>현 지도에서 시설 검색</UpdateButton>
+                        )}
+                    </MapView>
+                </BottomContainer>
+            </MapContainer>
+        </>
+
     );
 };
 

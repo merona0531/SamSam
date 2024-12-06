@@ -11,6 +11,7 @@ import styled from 'styled-components';
 export const MapContainer = styled.div`
   display: flex;
   height: 100vh;
+width: 100%;
     flex-direction: column;
     overflow: hidden;
 `;
@@ -57,25 +58,34 @@ export const FacilityList = styled.ul`
 
 // 시설 리스트 아이템 버튼 스타일
 export const FacilityButton = styled.button`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #fff;
-  cursor: pointer;
-  text-align: left;
-  font-size: 16px;
-    margin-left:10px;
-    margin-right:10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    width: 100%; /* 동일한 너비 설정 */
+    display: flex;
+    flex-direction: column; /* 텍스트를 세로로 배치 */
+    align-items: flex-start; /* 텍스트 왼쪽 정렬 */
 
-  &:hover {
-    background-color: #e9ecef;
-  }
+    span {
+        margin-top: 5px; /* 시설명과 주소 간 간격 */
+        margin-bottom: 5px;
+        font-size: 14px; /* 주소 글자 크기 */
+        color: #555; /* 주소 색상 */
+    }
+
+    &:hover {
+        background-color: #e9ecef;
+    }
 `;
-
 // "더 보기" 버튼 스타일
 export const LoadMoreButton = styled.button`
   padding: 10px;
   margin-top: 10px;
+    margin-bottom: 10px;
   background: #007bff;
   color: white;
   border: none;
@@ -134,7 +144,7 @@ export const MyLocationButton = styled.button`
     &::before {
         content: "";
         display: inline-block;
-        width: 40px;
+        width: 20px;
         height: 20px;
         background-image: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png');
         background-size: cover; /* 아이콘 크기 맞추기 */
@@ -147,3 +157,37 @@ export const MyLocationButton = styled.button`
     margin-left: auto;
     margin-right: auto;
 `;
+
+
+// 검색바 스타일
+export const SearchBar = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+
+    input {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: white;
+        color: #383838;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+
+
+    }
+`;
+
