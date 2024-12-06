@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import ReactDOM from 'react-dom'; // ReactDOM 임포트 추가
 
 import {
     MapContainer,

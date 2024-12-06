@@ -61,7 +61,7 @@ export default function ListPage() {
 
     const itemsPerPage = 12;
 
-    const daysOfWeek = [
+    const daysOfWek = [
         { label: "월", value: "Mon" },
         { label: "화", value: "Tue" },
         { label: "수", value: "Wed" },
