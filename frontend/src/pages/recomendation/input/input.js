@@ -46,18 +46,17 @@ export default function RecInputPage() {
     };
 
     const handleSubmit = async () => {
-        // 성별 변환 (F -> 여, M -> 남)
         const genderText = selectedGender === "F" ? "여" : "남";
 
         const userData = {
             sex: genderText,
             mbti: `${selectedDimensions.E_I}${selectedDimensions.N_S}${selectedDimensions.T_F}${selectedDimensions.J_P}`,
-            age: parseInt(age), // 문자열을 숫자로 변환
+            age: parseInt(age),
             disability: disability === "yes" ? "유" : "무",
         };
 
         try {
-            const response = await fetch('https://backend-icy-brook-6035.fly.dev', {
+            const response = await fetch('https://backendsamsam-production.up.railway.app/recommend', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,20 +70,24 @@ export default function RecInputPage() {
 
             const data = await response.json();
 
-            // 백엔드에서 추천 결과 데이터 받기
-            const recommendedSports = data.recommended_sports;
+            // 괄호 제거 함수
+            const removeParentheses = (sport) => sport.replace(/\(.*?\)/g, '').trim();
+
+            // 추천 결과 데이터 정제
+            const recommendedSports = data.recommended_sports.map(removeParentheses);
 
             // 결과 페이지로 이동하며 추천 데이터를 전달
             navigate('/recomendation/result', {
                 state: {
-                    mainSport: recommendedSports[0], // 메인 추천 스포츠
-                    recommendations: recommendedSports.slice(1), // 나머지 추천 목록
+                    mainSport: recommendedSports[0],
+                    recommendations: recommendedSports.slice(1),
                 },
             });
         } catch (error) {
             console.error('Error sending POST request:', error);
         }
     };
+
 
     return(
         <>

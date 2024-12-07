@@ -120,6 +120,7 @@ export const LBottom = styled.div`
   height: 65%;
   background-color: #001E5A;
   display: flex;
+  box-shadow: 4px -3px 20px 7px rgba(0, 0, 0, 0.5);
   flex-direction: column;
   border-radius: 70px 70px 0 0;
   align-items: center;
@@ -197,7 +198,7 @@ export const HoverLabel = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  height: 60%;
+  height: 65%;
   width: 80%;
   margin-top: 50px;
   align-items: center;
@@ -212,18 +213,19 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const RegionButton = styled.button`
-  width: 100px;
-  height: 40px;
+  width: 120px;
+  height: 45px;
   border: none;
-  border-radius: 20px;
+  border-radius: 30px;
   background-color: #FDB9DF;
   color: black;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background-color: #FC72C0;
+    transform: scale(1.05);
   }
 
   @media (max-width: 768px) {
