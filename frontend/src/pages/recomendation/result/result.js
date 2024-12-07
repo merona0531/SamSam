@@ -29,6 +29,8 @@ const images = {
     "테니스": require('../../../images/테니스.png'),
     "클라이밍": require('../../../images/클라이밍.png'),
     "크로스핏": require('../../../images/크로스핏.png'),
+    "댄스": require('../../../images/댄스.png'),
+    "에어로빅": require('../../../images/에어로빅.png'),
 };
 
 export default function RecResultPage() {
