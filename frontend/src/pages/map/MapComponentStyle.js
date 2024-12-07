@@ -197,8 +197,10 @@ export const SearchBar = styled.div`
 `;
 
 
-export const SearchResultCount = styled.p`
+export const SearchResultCount = styled.div`
   margin-top: 0px;
+    width: 85%;
+    text-align: left;
     margin-bottom: 20px;
   color: #555;
   font-size: 15px;
