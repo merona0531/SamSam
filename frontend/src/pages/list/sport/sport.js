@@ -53,7 +53,7 @@ export default function BySportPage() {
             <Reset/>
             <Wrapper>
                 <LogoImg src={Logo} onClick={() => navigate('/')}/>
-                <Title>조회하고싶은 강좌를 선택해 주세요</Title>
+                <Title>조회하고 싶은 종목을 선택해 주세요</Title>
                 <Container>
                     <BtnWrapper>
                         {Object.entries(images).map(([key, src]) => (

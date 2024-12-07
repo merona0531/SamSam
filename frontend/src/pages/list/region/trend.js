@@ -66,10 +66,10 @@ export default function TrendPage() {
                         <LTop>
                             <LogoImg src={Logo} onClick={() => navigate('/')} />
                             <Title>
-                                스포츠이용권 리스트가 궁금한 지역을 클릭해보세요!
+                                스포츠 강좌 리스트가 궁금한 지역을 클릭해보세요!
                             </Title>
                             <SubTitle>
-                                해당 지역을 클릭하시면 지역 스포츠 이용권에 대한 리스트를 조회하실 수 있습니다.
+                                해당 지역을 클릭하시면 스포츠 강좌 리스트를 조회하실 수 있습니다.
                             </SubTitle>
                         </LTop>
                         <LBottom>
