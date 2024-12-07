@@ -224,6 +224,8 @@ const MapComponent = () => {
 
                     marker.setMap(mapInstance.current);
                     currentLocationMarker.current = marker;
+
+                    updateFacilitiesInMapView();
                 },
                 (error) => {
                     alert("현재 위치를 가져올 수 없습니다.");
@@ -233,6 +235,7 @@ const MapComponent = () => {
         } else {
             alert("Geolocation을 지원하지 않는 브라우저입니다.");
         }
+
     };
 
     useEffect(() => {
