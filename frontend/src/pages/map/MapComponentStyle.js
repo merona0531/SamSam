@@ -133,7 +133,7 @@ export const MapView = styled.div`
 `;
 
 export const MyLocationButton = styled.button`
-    margin-top: 20px;
+    margin-top: 10px;
     background: none; /* 배경 제거 */
     color: #000000; /* 텍스트 색상 검은색 */
     border: none; /* 테두리 제거 */
@@ -168,7 +168,7 @@ export const MyLocationButton = styled.button`
 export const SearchBar = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-top: 30px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -196,3 +196,13 @@ export const SearchBar = styled.div`
     }
 `;
 
+
+export const SearchResultCount = styled.div`
+  margin-top: 0px;
+    width: 85%;
+    text-align: left;
+    margin-bottom: 20px;
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+`;

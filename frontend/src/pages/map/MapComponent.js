@@ -7,13 +7,13 @@ import {
     Sidebar,
     FacilityList,
     FacilityButton,
-    LoadMoreButton,
     UpdateButton,
     MapView,
     TopContainer,
     BottomContainer,
     MyLocationButton,
     SearchBar,
+    SearchResultCount,
 } from './MapComponentStyle';
 import { LogoContainer, LogoImg } from "../recomendation/result/resultstyle";
 import Logo from "../../images/3355.png";
@@ -26,12 +26,11 @@ const MapComponent = () => {
     const [facilities, setFacilities] = useState([]);
     const [filteredFacilities, setFilteredFacilities] = useState([]);
     const [visibleFacilities, setVisibleFacilities] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
     const [showUpdateButton, setShowUpdateButton] = useState(false); // 업데이트 버튼 표시 여부
     const markers = useRef([]);
     const overlays = useRef([]);
     const currentLocationMarker = useRef(null); // 현재 위치 마커
-    const ITEMS_PER_PAGE = 7;
+
 
     const [searchQuery, setSearchQuery] = useState("");
     const [noResultsMessage, setNoResultsMessage] = useState(""); // 결과 메시지 상태
@@ -42,7 +41,7 @@ const MapComponent = () => {
             facility.FCLTY_NM.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setFilteredFacilities(filtered);
-        setCurrentPage(1); // 검색 결과에 따른 페이지 초기화
+
         if (filtered.length === 0) {
             setNoResultsMessage("검색 결과가 없습니다."); // 검색 결과가 없으면 메시지 표시
         } else {
@@ -123,14 +122,17 @@ const MapComponent = () => {
             // overlayContent를 DOM 요소로 생성
             const overlayContent = document.createElement('div');
             overlayContent.innerHTML = `
-                <div style="padding:10px;background:white;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.3);">
-                    <p style="margin:0; font-weight:600;">${facility.FCLTY_NM} 
-                        <span >(${facility.INDUTY_NM})</span>
-                    </p>
-                    <p style="margin:0; font-size:12px; color:#555;">${facility.RDNMADR_NM}</p>
-                    <button style="margin-top:5px;padding:10px;cursor:pointer;">강좌 보기</button>
-                </div>
-            `;
+    <div style="padding:12px; background:white; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <p style="margin: 0; font-size: 16px; font-weight: 700; color: #333;">${facility.FCLTY_NM}</p>
+            <p style="margin: 0 0 0 8px; font-size: 14px; color: #777;">(${facility.INDUTY_NM})</p>
+        </div>
+        <p style="margin: 10px 0 0; font-size: 12px; color: #555;">${facility.RDNMADR_NM}</p>
+        <button style="margin-top:8px; padding:10px; cursor:pointer; background:#f0f0f0; border:none; border-radius:4px;">
+            강좌 보기
+        </button>
+    </div>
+`;
 
             // 버튼 클릭 시 handleFacilityProgramClick 함수 호출
             overlayContent.querySelector('button').addEventListener('click', () => {
@@ -173,19 +175,14 @@ const MapComponent = () => {
         }
 
         setFilteredFacilities(filtered);
-        setCurrentPage(1);
         setShowUpdateButton(false); // 업데이트 버튼 숨김
     }, [facilities]);
 
-    useEffect(() => {
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
-        setVisibleFacilities(filteredFacilities.slice(startIndex, endIndex));
-    }, [filteredFacilities, currentPage]);
 
-    const handleLoadMore = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-    };
+    useEffect(() => {
+        setVisibleFacilities(filteredFacilities);
+    }, [filteredFacilities]);
+
 
     const handleFacilityClick = (facility) => {
         const position = new window.kakao.maps.LatLng(facility.FCLTY_LA, facility.FCLTY_LO);
@@ -269,7 +266,14 @@ const MapComponent = () => {
                             내 위치로 이동
                         </MyLocationButton>
                         {noResultsMessage && <p>{noResultsMessage}</p>} {/* 결과 메시지 출력 */}
+                        {visibleFacilities.length > 0 && (
+                            <SearchResultCount>
+                                총 {visibleFacilities.length} 개의 검색 결과
+                            </SearchResultCount>
+
+                        )}
                         {visibleFacilities.length > 0 ? (
+
                             <FacilityList>
                                 {visibleFacilities.map((facility, index) => (
                                     <li key={index}>
@@ -307,9 +311,6 @@ const MapComponent = () => {
 
                         ) : (
                             !noResultsMessage && <p>현재 지도 영역에 체육시설이 없습니다.</p>
-                        )}
-                        {currentPage * ITEMS_PER_PAGE < filteredFacilities.length && (
-                            <LoadMoreButton onClick={handleLoadMore}>더 보기</LoadMoreButton>
                         )}
                     </Sidebar>
                     <MapView ref={mapContainer}>
