@@ -29,13 +29,12 @@ export default function ListPage() {
 
     const { source, region, sport, facility } = location.state || {};
 
-    const title = currentSearch
-        ? `검색어: ${currentSearch}`
-        : (source === "TrendPage"
+    const title =
+        source === "TrendPage"
             ? region || "지역"
             : source === "MapPage"
                 ? facility || "시설"
-                : sport || "스포츠");
+                : sport || "스포츠";
 
     // 요일 변환 함수
     const convertDayToCode = (day) => {
@@ -75,6 +74,7 @@ export default function ListPage() {
     };
 
     // API 요청 함수
+    // API 요청 함수
     const fetchData = async () => {
         try {
             const daysParam = selectedDays.map((day) => convertDayToCode(day)); // 요일 변환
@@ -88,17 +88,19 @@ export default function ListPage() {
                 target: convertAgeToTarget(selectedAge), // 연령대 변환
                 page: currentPage,
                 limit: 20,
-                search: currentSearch || undefined, // 검색어 추가
             };
 
-            if (!currentSearch) {
-                if (source === "TrendPage") {
-                    params.region = convertRegion(title);  // TrendPage인 경우 region 처리
-                } else if (source === "MapPage") {
-                    params.facility = title;  // MapPage인 경우 facility 처리
-                } else {
-                    params.sport = title;  // 다른 경우에는 sport 처리
-                }
+            if (source === "TrendPage") {
+                params.region = convertRegion(title); // TrendPage인 경우 region 추가
+            } else if (source === "MapPage") {
+                params.facility = title; // MapPage인 경우 facility 추가
+            } else {
+                params.sport = title; // 스포츠 선택 페이지인 경우 sport 추가
+            }
+
+            // 검색어는 항상 추가
+            if (currentSearch) {
+                params.search = currentSearch;
             }
 
             // 쿼리 문자열 생성
@@ -129,7 +131,6 @@ export default function ListPage() {
             console.error("데이터 가져오기 오류:", error);
         }
     };
-
 
 
     // 선택된 요일 토글
