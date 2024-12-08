@@ -42,7 +42,7 @@ export default function MainPage() {
                                     <RButton onClick={() => navigate('/map')}>지도로 확인해보기</RButton>
                                 </div>
                             </ListButtonWrapper>
-                            <Button onClick={() => navigate('/recomendation/input')}>유사도 추천</Button>
+                            <Button onClick={() => navigate('/recomendation/input')}>스포츠 추천</Button>
                         </ButtonWrapper>
                     </ButtonContainer>
                 </RoundedRectangle>

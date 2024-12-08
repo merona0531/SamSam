@@ -315,3 +315,73 @@ export const Select = styled.select`
   }
 `;
 
+export const SearchData=styled.div`
+  width: 680px;
+  text-align: left;
+  margin: 10px 0;
+  font-size: 16px;
+  color: white;
+`
+export const PageNumber=styled.button`
+    margin: 0 5px;
+  background: none;
+  border: none;
+`
+export const NextBtn=styled.button`
+  color: white;
+  background: none;
+  border: none;
+`
+
+export const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const ModalContainer = styled.div`
+    background: white;
+    width: 500px;
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+`;
+
+export const CloseButton = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+`;
+
+export const ModalContent = styled.div`
+    h2 {
+      font-size: 25px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    p {
+        margin: 10px 0;
+    }
+
+    a {
+        color: #fc72c0;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    strong{
+      font-weight: bold;
+    }
+`;

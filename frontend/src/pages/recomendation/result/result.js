@@ -31,6 +31,10 @@ const images = {
     "크로스핏": require('../../../images/크로스핏.png'),
     "댄스": require('../../../images/댄스.png'),
     "에어로빅": require('../../../images/에어로빅.png'),
+    "배구": require('../../../images/배구.png'),
+    "헬스": require('../../../images/헬스.png'),
+    "태권도": require('../../../images/태권도.png'),
+    "합기도": require('../../../images/합기도.png'),
 };
 
 export default function RecResultPage() {
