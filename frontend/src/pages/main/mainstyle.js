@@ -130,12 +130,24 @@ export const Button = styled.button`
   }
 
   @media (max-width: 768px) {
-    width: 420px; /* 모바일에서 버튼 너비를 100%로 */
-    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+    width: 400px; /* 모바일에서 버튼 너비를 100%로 */
+    font-size: 16px; /* 모바일에서 폰트 크기 줄이기 */
     height: 50px; /* 모바일에서 버튼 높이 줄이기 */
   }
 `;
 
+export const ListBtnWrapper=styled.div`
+  display:flex;
+  width:454px;
+  justify-content: space-between;
+  margin-top:20px;
+
+  @media (max-width: 768px) {
+    width: 364px; /* 모바일에서 버튼 너비를 80%로 */
+    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+    height: 45px; /* 모바일에서 버튼 높이 줄이기 */
+  }
+`
 export const LButton = styled.button`
   width: 150px;
   height: 50px;
@@ -154,8 +166,8 @@ export const LButton = styled.button`
   }
 
   @media (max-width: 768px) {
-   width: 200px; /* 모바일에서 버튼 너비를 80%로 */
-    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+   width: 120px; /* 모바일에서 버튼 너비를 80%로 */
+    font-size: 16px; /* 모바일에서 폰트 크기 줄이기 */
     height: 45px; /* 모바일에서 버튼 높이 줄이기 */
   }
 `;
@@ -177,8 +189,8 @@ export const MButton = styled.button`
   }
 
   @media (max-width: 768px) {
-   width: 200px; /* 모바일에서 버튼 너비를 80%로 */
-    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+   width: 120px; /* 모바일에서 버튼 너비를 80%로 */
+    font-size: 16px; /* 모바일에서 폰트 크기 줄이기 */
     height: 45px; /* 모바일에서 버튼 높이 줄이기 */
   }
 `;
@@ -200,8 +212,8 @@ export const RButton = styled.button`
   }
 
   @media (max-width: 768px) {
-   width: 200px; /* 모바일에서 버튼 너비를 80%로 */
-    font-size: 18px; /* 모바일에서 폰트 크기 줄이기 */
+   width: 120px; /* 모바일에서 버튼 너비를 80%로 */
+    font-size: 12px; /* 모바일에서 폰트 크기 줄이기 */
     height: 45px; /* 모바일에서 버튼 높이 줄이기 */
   }
 `;
